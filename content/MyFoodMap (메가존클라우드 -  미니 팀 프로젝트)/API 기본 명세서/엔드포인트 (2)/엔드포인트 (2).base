@@ -1,0 +1,46 @@
+# 엔드포인트 (2)
+
+filters:
+  and:
+    - note["base"] == link("엔드포인트 (2).base")
+properties:
+  file.name:
+    displayName: 기능
+  설명:
+    displayName: 설명
+  BE test:
+    displayName: BE test
+  FE:
+    displayName: FE
+  사용자:
+    displayName: 사용자
+  Method:
+    displayName: Method
+  카테고리:
+    displayName: 카테고리
+  기타:
+    displayName: 기타
+  BE:
+    displayName: BE
+  URL:
+    displayName: URL
+  FE test:
+    displayName: FE test
+  param:
+    displayName: param
+views:
+  - type: table
+    name: Table View
+    order:
+      - file.name
+      - 설명
+      - BE test
+      - FE
+      - 사용자
+      - Method
+      - 카테고리
+      - 기타
+      - BE
+      - URL
+      - FE test
+      - param
