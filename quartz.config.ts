@@ -8,10 +8,11 @@ const config: QuartzConfig = {
     enableSPA: true,
     enablePopovers: true,
     analytics: {
-      provider: "plausible",
+      provider: "google",
+      tagId: "G-159ESL071B",
     },
     locale: "ko-KR",
-    baseUrl: "techblog-olive-pi.vercel.app",
+    baseUrl: "techblog-4lh.pages.dev",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
