@@ -6,6 +6,11 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
+    Component.ConditionalRender({
+    component: Component.RecentNotes({ limit: 5 }),
+    condition: (page) => page.fileData.slug === "main_home",
+  }),
+
     Component.Comments({
       provider: "giscus",
       options: {
@@ -13,15 +18,10 @@ export const sharedPageComponents: SharedLayout = {
         repoId: "R_kgDORJ7R1Q",
         category: "Announcements",
         categoryId: "DIC_kwDORJ7R1c4C2E5T",
-
-        // mapping
         mapping: "pathname",
         strict: true,
-
-        // features
         reactionsEnabled: true,
         inputPosition: "top",
-
         lang: "ko",
       },
     }),
@@ -31,7 +31,7 @@ export const sharedPageComponents: SharedLayout = {
       LinkedIn: "https://www.linkedin.com/in/hjklink/",
       GitHub1: "https://github.com/seol-hj",
       GitHub2: "https://github.com/hj-3",
-      "Mail": "hyjoon333@gmail.com",
+      Mail: "mailto:hyjoon333@gmail.com",
     },
   }),
 }
