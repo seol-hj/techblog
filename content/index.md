@@ -9,8 +9,3 @@ $ cat README.md
 새로운거 써보고
 에러 나면 gpt
 ...
-
----
-
-## Recent Posts
-최근 글 5개.
