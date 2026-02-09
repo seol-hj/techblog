@@ -4,7 +4,7 @@ title: vi /var/log/study.log
 
 ```bash
 whoami
-이것저것다해보기
+이것저것 다해보기
 
 cat README.md
 새로운거 써보고
