@@ -10,7 +10,7 @@ const config: QuartzConfig = {
     analytics: {
       provider: "plausible",
     },
-    locale: "en-US",
+    locale: "ko-KR",
     baseUrl: "techblog-olive-pi.vercel.app",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
