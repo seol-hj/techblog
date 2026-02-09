@@ -1,3 +1,1 @@
-hellohello
-
-[[test/test]]
+[[test/hello]]
