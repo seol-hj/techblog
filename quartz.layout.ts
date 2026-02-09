@@ -28,8 +28,10 @@ export const sharedPageComponents: SharedLayout = {
   ],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/hj-3",
-      "Mail": "",
+      LinkedIn: "https://www.linkedin.com/in/hjklink/",
+      GitHub1: "https://github.com/seol-hj",
+      GitHub2: "https://github.com/hj-3",
+      "Mail": "hyjoon333@gmail.com",
     },
   }),
 }
