@@ -18,5 +18,5 @@ cat README.md
 - LinkedIn → https://www.linkedin.com/in/hjklink/
 - GitHub 1→ https://github.com/seol-hj
 - GitHub 2 → https://github.com/hj-3
-- Mail → mailto:hyjoon333@gmail.com
+- Mail → hyjoon333@gmail.com
 - Notion → [Tech Notes](https://steep-seeker-82e.notion.site/2eeefad9e1e2806eaa14f0df315df214)
