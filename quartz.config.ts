@@ -3,7 +3,7 @@ import * as Plugin from "./quartz/plugins"
 
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "ls -a /blog",
+    pageTitle: "cd /home/hj/blog",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
