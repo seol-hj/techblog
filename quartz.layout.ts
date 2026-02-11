@@ -31,7 +31,6 @@ export const sharedPageComponents: SharedLayout = {
       LinkedIn: "https://www.linkedin.com/in/hjklink/",
       GitHub1: "https://github.com/seol-hj",
       GitHub2: "https://github.com/hj-3",
-      Mail: "mailto:hyjoon333@gmail.com",
     },
   }),
 }
