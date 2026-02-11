@@ -1,0 +1,459 @@
+---
+title: Classic Solutions Architecture
+date: 2026-02-01
+updated: 2026-02-01
+tags:
+  - aws
+  - certification
+  - saa-c03
+  - architecture
+draft: false
+---
+## 🟦 Stateless Web App – [WhatIsTheTime.com](http://WhatIsTheTime.com)
+
+### 서비스 요구사항
+
+- 현재 시간을 알려주는 단순 웹 서비스
+- ❌ 데이터베이스 불필요
+- 초기에는 **Downtime 허용**
+- 최종 목표
+    - **Vertical + Horizontal Scaling**
+    - **Downtime 없는 확장**
+
+---
+
+### 🧩 1단계 – Starting Simple (단일 EC2)
+
+```
+User
+ ↓
+Public EC2
+ + Elastic IP
+```
+
+- Public EC2
+- Elastic IP 사용
+- 구조는 단순하지만:
+    - 단일 장애 지점 (SPOF)
+
+---
+
+### 🧩 2단계 – Vertical Scaling
+
+```
+User
+ ↓
+PublicEC2(ScaleUp)
+```
+
+- 인스턴스 타입 업그레이드
+    - 예: t2 → m5
+- 문제점
+    - **업그레이드 중 Downtime 발생**
+    - 확장 한계 존재
+
+---
+
+### 🧩 3단계 – Horizontal Scaling (문제 발생)
+
+```
+User
+ ↓
+Route53 (ARecord, TTL1h)
+ ↓
+Public EC2 instances (여러 개)
+```
+
+- EC2 여러 대로 확장
+- Elastic IP 제거
+- Route 53 A Record 사용
+- **문제**
+    - 인스턴스가 사라져도
+    - TTL 동안 죽은 IP로 요청 가능
+
+---
+
+### 🧩 4단계 – Load Balancer 도입
+
+```
+User
+ ↓
+Route53 (Alias)
+ ↓
+ELB + HealthCheck
+ ↓
+Private EC2
+```
+
+- Load Balancer 도입
+- EC2는 Private Subnet
+- Health Check로 비정상 인스턴스 제외
+- 보안 그룹 제한
+
+---
+
+### 🧩 5단계 – Auto Scaling Group
+
+```
+User
+ ↓
+Route53 (Alias)
+ ↓
+ELB
+ ↓
+Auto ScalingGroup
+```
+
+- 인스턴스 자동 증감
+- 장애 시 자동 복구
+- 운영 부담 감소
+
+---
+
+### 🧩 6단계 – Multi-AZ 구성
+
+```
+User
+ ↓
+Route53
+ ↓
+ELB (Multi-AZ)
+ ↓
+ASG (AZ1,2,3)
+```
+
+- 최소 2개 AZ 이상
+- AZ 장애에도 서비스 유지
+- **고가용성 확보**
+
+---
+
+### 🧩 7단계 – Reserved Instances
+
+- 최소 인스턴스 수만큼
+    - **Reserved Instances 구매**
+- 목적
+    - 비용 절감
+    - 기본 용량 확보
+
+---
+
+### 🔎 [WhatIsTheTime.com](http://WhatIsTheTime.com) 정리
+
+> 이 아키텍처에서 다룬 핵심 개념
+
+- Public vs Private IP
+- Elastic IP vs Route 53 vs Load Balancer
+- Route 53 TTL / A Record / Alias
+- 수동 관리 vs Auto Scaling Group
+- Multi-AZ
+- ELB Health Check
+- Security Group 설계
+- Reserved Instance로 비용 최적화
+
+---
+
+## 🟧 Stateful Web App – [MyClothes.com](http://MyClothes.com)
+
+### 서비스 요구사항
+
+- 온라인 쇼핑몰
+- 쇼핑 카트 존재
+- 동시 사용자 수백 명
+- **수평 확장 필수**
+- 웹 계층은 최대한 Stateless 유지
+- 쇼핑 카트 유실 ❌
+- 사용자 정보 DB 필요
+
+---
+
+### 🧩 기본 구조 – Multi-AZ + ASG
+
+```
+User
+ ↓
+ELB
+ ↓
+ASG (AZ1,2,3)
+```
+
+---
+
+### 🧩 문제 1 – Session 유지
+
+### ❌ 문제
+
+- 다른 EC2로 요청 전달 시
+    - 쇼핑 카트 유실
+
+---
+
+### 🧩 해결 1 – ELB Stickiness
+
+- 동일 사용자를 동일 인스턴스로 전달
+- 단점
+    - 인스턴스 장애 시 세션 유실
+    - 확장성 제한
+
+---
+
+### 🧩 해결 2 – Cookies 활용
+
+- 쇼핑 카트 정보를 쿠키에 저장
+- 문제점
+    - HTTP 요청 무거움
+    - 보안 위험 (변조 가능)
+    - 쿠키 크기 제한 (4KB)
+    - 서버에서 검증 필요
+
+---
+
+### 🧩 해결 3 – Server Session Store
+
+```
+Web EC2
+ ↔ ElastiCache
+```
+
+- 쿠키에는 session_id만 저장
+- 실제 세션 데이터는
+    - ElastiCache
+    - (대안: DynamoDB)
+
+---
+
+### 🧩 사용자 데이터 저장
+
+```
+EC2
+ ↓
+Amazon RDS
+```
+
+- 주소, 이름 등 영속 데이터
+- 관계형 DB 사용
+
+---
+
+### 🧩 Read Scaling
+
+### 방법 1 – RDS Read Replica
+
+- Read 전용 확장
+- Master는 Write 전담
+
+### 방법 2 – Cache (Lazy Loading)
+
+- 자주 조회되는 데이터 캐시
+- Cache Miss 시 DB 접근
+
+---
+
+### 🧩 Disaster Recovery – Multi-AZ
+
+- EC2: Multi-AZ
+- ElastiCache: Multi-AZ
+- RDS: Multi-AZ
+
+---
+
+### 🧩 Security Group 설계
+
+- ELB → EC2만 허용
+- EC2 → RDS / ElastiCache만 허용
+- 외부:
+    - HTTP / HTTPS만 허용 (0.0.0.0/0)
+
+---
+
+### 🔎 [MyClothes.com](http://MyClothes.com) 정리
+
+- 3-Tier Web Architecture
+- ELB Sticky Sessions
+- Stateless Web 설계
+- ElastiCache
+    - Session Store
+    - Cache
+- Multi-AZ
+- RDS + Read Replica
+- 보안 그룹 상호 참조
+
+---
+
+## 🟩 Stateful Web App – [MyWordPress.com](http://MyWordPress.com)
+
+### 요구사항
+
+- 완전 확장형 WordPress
+- 이미지 업로드 정상 동작
+- 사용자 데이터 & 콘텐츠 DB 저장
+
+---
+
+### 🧩 DB 계층 – RDS Multi-AZ
+
+```
+EC2
+ ↓
+RDS (Multi-AZ)
+```
+
+---
+
+### 🧩 Aurora 사용 (권장)
+
+- Multi-AZ 기본 내장
+- Read Replica 자동 지원
+- 높은 성능
+
+---
+
+### 🧩 이미지 저장 – EBS (문제)
+
+- 단일 EC2에만 적합
+- Multi-AZ에서 이미지 불일치 발생
+
+---
+
+### 🧩 이미지 저장 – EFS (해결)
+
+```
+EC2 (AZ1) ─┐
+EC2 (AZ2) ─┼─ EFS
+EC2 (AZ3) ─┘
+```
+
+- 모든 인스턴스가 동일 파일 시스템 사용
+- 분산 애플리케이션에 적합
+
+---
+
+### 🔎 [MyWordPress.com](http://MyWordPress.com) 정리
+
+- Aurora로 Multi-AZ + Read Replica
+- EBS vs EFS 차이
+- 분산 시스템에서는 **EFS 필수**
+
+---
+
+## ⚡ Instantiating Applications Quickly
+
+### 문제
+
+- 풀 스택 배포 시
+    - 설치
+    - 설정
+    - 데이터 복원 시간이 오래 걸림
+        
+
+---
+
+### 해결 전략
+
+### EC2
+
+- **Golden AMI**
+    - 미리 앱/의존성 설치
+- **User Data**
+    - 동적 설정
+- Hybrid
+    - AMI + User Data (Elastic Beanstalk)
+
+### RDS / EBS
+
+- Snapshot 복원
+- 초기 데이터 포함
+
+---
+
+## 🧱 대표적인 3-Tier 아키텍처
+
+```
+Route53
+ ↓
+ELB
+ ↓
+ASG (Web Tier)
+ ↓
+ElastiCache
+ ↓
+RDS (Data Tier)
+```
+
+- Public / Private / Data Subnet 분리
+- Multi-AZ
+
+---
+
+## 🧑‍💻 Developer의 문제점
+
+- 인프라 관리 부담
+- 배포 복잡성
+- 확장 걱정
+- 대부분의 웹앱 구조는 유사
+- 개발자는 **코드 실행만 원함**
+
+---
+
+## 🌱 Elastic Beanstalk
+
+> 개발자 중심 PaaS 서비스
+
+### 특징
+
+- EC2, ASG, ELB, RDS 자동 구성
+- 용량, 로드밸런싱, 모니터링 자동
+- 개발자는 **코드만 관리**
+- 구성 제어 가능
+- 서비스 자체 비용 ❌
+    - underlying 리소스만 과금
+
+---
+
+## 🧩 Elastic Beanstalk 구성 요소
+
+- Application
+- Application Version
+- Environment
+- Environment Tier
+    - Web Server
+    - Worker
+
+---
+
+## 🧩 지원 플랫폼
+
+- Go, Java, Tomcat
+- .NET (Linux / Windows)
+- Node.js, PHP, Python, Ruby
+- Docker (Single / Multi / Preconfigured)
+
+---
+
+## 🧩 Web Tier vs Worker Tier
+
+### Web Tier
+
+- HTTP 요청 처리
+- ALB 앞단
+
+### Worker Tier
+
+- SQS 기반 비동기 처리
+- 메시지 수 기준 스케일
+
+---
+
+## 🚀 Elastic Beanstalk 배포 모드
+
+### Single Instance
+
+- 개발 환경
+- 단순 구조
+
+### High Availability
+
+- ASG + ALB
+- 프로덕션 권장
+- Multi-AZ
+- RDS Master / Standby

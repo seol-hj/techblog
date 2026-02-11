@@ -1,0 +1,530 @@
+---
+title: Storage Extras
+date: 2026-02-01
+updated: 2026-02-01
+tags:
+  - aws
+  - certification
+  - saa-c03
+  - storage
+draft: false
+---
+## 1️. AWS Snowball
+
+> **AWS Snowball**
+> 대규모 데이터를 **오프라인 물리 디바이스**를 이용해 AWS로 이동하거나 AWS에서 외부로 이동하기 위한 서비스
+
+### 핵심 특징
+
+- **고보안 휴대용 디바이스**
+- 엣지 환경에서 데이터 **수집 + 처리**
+- **Petabyte(페타바이트) 규모 데이터 마이그레이션** 지원
+- 네트워크 기반 전송의 한계를 보완
+
+---
+
+## 2️. Snowball Edge 디바이스 종류
+
+### Snowball Edge Storage Optimized
+
+- **vCPU**: 104
+- **메모리**: 416 GB
+- **스토리지(SSD)**: 210 TB
+- 대규모 데이터 저장 + 전송 중심
+
+### Snowball Edge Compute Optimized
+
+- **vCPU**: 104
+- **메모리**: 416 GB
+- **스토리지(SSD)**: 28 TB
+- 엣지 컴퓨팅 작업에 최적화
+
+---
+
+## 3️. Snowball을 사용하는 데이터 마이그레이션 배경
+
+### 네트워크 전송 시간 비교
+
+|데이터량|100 Mbps|1 Gbps|10 Gbps|
+|---|---|---|---|
+|10 TB|12일|30시간|3시간|
+|100 TB|124일|12일|30시간|
+|1 PB|3년|124일|12일|
+
+> ❗ 네트워크 전송이 **1주 이상 걸리면 Snowball 사용이 권장됨**
+
+### 네트워크 전송의 현실적 문제
+
+- 연결 품질 제한
+- 대역폭 부족
+- 높은 네트워크 비용
+- 회선 공유로 인한 성능 저하
+- 연결 안정성 문제
+
+---
+
+## 4️. S3 직접 업로드 vs Snowball 업로드 아키텍처
+
+### 🔹 Direct Upload to S3
+
+```
+Client ──(10Gbps Internet)──▶ Amazon S3 Bucket
+```
+
+### 🔹 Snowball 기반 업로드
+
+```
+Client ─▶ AWS Snowball Device
+        └─(물리 배송)─▶ AWS ─▶ Amazon S3 Bucket
+```
+
+---
+
+## 5️. Edge Computing 개념
+
+> **Edge Computing**
+> 데이터가 생성되는 **현장(Edge Location)** 에서 데이터를 즉시 처리하는 방식
+
+### Edge Location 예시
+
+- 도로 위 트럭
+- 해상 선박
+- 지하 광산
+- 네트워크가 불안정한 원격 지역
+
+### Snowball Edge의 역할
+
+- 현장에 **Snowball Edge 디바이스 배치**
+- **EC2 인스턴스** 또는 **Lambda 함수 실행**
+- 데이터 사전 처리 후 AWS로 이동
+
+### 주요 활용 사례
+
+- 데이터 전처리
+- 머신러닝 추론
+- 미디어 트랜스코딩
+
+---
+
+## 6️. Snowball → Glacier 아키텍처
+
+> ❗ Snowball은 **Glacier로 직접 업로드 불가**
+
+### 필수 흐름
+
+```
+Snowball ─▶ Amazon S3 ─▶ (Lifecycle Policy) ─▶ Amazon Glacier
+```
+
+- 반드시 **S3를 중간 단계로 사용**
+- S3 Lifecycle Policy로 Glacier 이전
+
+---
+
+## 7️. Amazon FSx 개요
+
+> **Amazon FSx**
+> AWS에서 **고성능 서드파티 파일 시스템**을 완전관리형으로 제공
+
+### FSx 종류
+
+- FSx for Windows File Server
+- FSx for Lustre
+- FSx for NetApp ONTAP
+- FSx for OpenZFS
+
+---
+
+## 8️. Amazon FSx for Windows File Server
+
+### 핵심 특징
+
+- 완전관리형 **Windows 파일 시스템**
+- **SMB 프로토콜**, **NTFS** 지원
+- **Active Directory 통합**
+- ACL, 사용자 쿼터 지원
+- Linux EC2에서도 마운트 가능
+- DFS Namespace 지원
+
+### 성능 및 확장성
+
+- 수십 GB/s 처리량
+- 수백만 IOPS
+- 수백 PB 스토리지
+
+### 스토리지 옵션
+
+- **SSD**: 저지연 워크로드 (DB, 미디어 처리)
+- **HDD**: 일반 파일 워크로드 (홈 디렉터리, CMS)
+
+### 기타 특징
+
+- 온프레미스 접근 가능 (VPN / Direct Connect)
+- Multi-AZ 구성 가능
+- **S3로 매일 백업**
+
+---
+
+## 9️. Amazon FSx for Lustre
+
+> **Lustre = Linux + Cluster**
+
+### 사용 목적
+
+- 머신러닝
+- 고성능 컴퓨팅(HPC)
+- 영상 처리
+- 금융 모델링
+- 반도체 설계
+
+### 성능
+
+- 수백 GB/s 처리량
+- 수백만 IOPS
+- Sub-millisecond latency
+
+### 스토리지 옵션
+
+- **SSD**: 랜덤 I/O, 저지연
+- **HDD**: 대용량 순차 처리
+
+### S3 통합
+
+- S3 데이터를 **파일 시스템처럼 읽기**
+- 연산 결과를 **다시 S3로 저장**
+
+---
+
+## 10. FSx for Lustre 배포 방식
+
+### 🧪 Scratch File System
+
+- 임시 스토리지
+- 데이터 복제 ❌
+- 장애 시 데이터 유실
+- 매우 높은 버스트 성능 (최대 6배)
+- 단기 작업에 적합
+
+### 🏗 Persistent File System
+
+- 장기 스토리지
+- AZ 내 데이터 복제
+- 장애 시 수분 내 복구
+- 중요 데이터 처리에 적합
+
+---
+
+## 1️1. Amazon FSx for NetApp ONTAP
+
+### 핵심 특징
+
+- 관리형 NetApp ONTAP
+- **NFS / SMB / iSCSI** 지원
+- 기존 NAS/ONTAP 워크로드 이전 용이
+
+### 호환 환경
+
+- Linux / Windows / macOS
+- VMware Cloud on AWS
+- WorkSpaces, AppStream
+- EC2, ECS, EKS
+
+### 고급 기능
+
+- 자동 스토리지 확장/축소
+- 스냅샷
+- 복제
+- 압축, 중복 제거
+- **시점 복제 클론 (테스트 용도)**
+
+---
+
+## 1️2. Amazon FSx for OpenZFS
+
+### 핵심 특징
+
+- 관리형 OpenZFS
+- **NFS v3 / v4 / v4.1 / v4.2**
+- 최대 **1,000,000 IOPS**
+- **0.5ms 미만 지연**
+
+### 지원 환경
+
+- Linux / Windows / macOS
+- VMware Cloud on AWS
+- EC2, ECS, EKS
+- WorkSpaces, AppStream
+
+### 주요 기능
+
+- 스냅샷
+- 압축
+- 저비용 스토리지
+- 시점 복제 클론
+
+---
+
+## 1️3. Hybrid Cloud Storage 배경
+
+> AWS는 **Hybrid Cloud 전략**을 적극 추진 중
+
+### Hybrid 구조가 필요한 이유
+
+- 장기 마이그레이션
+- 보안 요구사항
+- 컴플라이언스
+- IT 전략
+
+### 문제점
+
+- **S3는 Proprietary Storage**
+- 온프레미스에서 직접 접근 불가
+
+➡ 해결책: **AWS Storage Gateway**
+
+---
+
+## 1️4. AWS Cloud Native Storage 분류
+
+|유형|서비스|
+|---|---|
+|Block|Amazon EBS|
+|File|Amazon EFS, Amazon FSx|
+|Object|Amazon S3|
+|Archive|Amazon Glacier|
+
+---
+
+## 1️5. AWS Storage Gateway 개요
+
+> **온프레미스 ↔ AWS 스토리지 연결 브리지**
+
+### 주요 사용 사례
+
+- 재해 복구
+- 백업 & 복원
+- 계층형 스토리지
+- 저지연 파일 접근
+
+### 종류
+
+- S3 File Gateway
+- FSx File Gateway
+- Volume Gateway
+- Tape Gateway
+
+---
+
+## 1️6. Amazon S3 File Gateway
+
+### 핵심 구조
+
+```
+On-PremApp ─(NFS/SMB)─▶FileGateway ─▶AmazonS3
+```
+
+### 특징
+
+- S3를 **NFS / SMB로 접근**
+- 최근 데이터는 로컬 캐시
+- 지원 스토리지 클래스:
+    - Standard
+    - Standard-IA
+    - One Zone-IA
+    - Intelligent-Tiering
+- Lifecycle Policy로 Glacier 이동
+- IAM Role 기반 접근 제어
+- SMB + AD 인증 지원
+
+---
+
+## 1️7. Amazon FSx File Gateway
+
+### 특징
+
+- FSx for Windows File Server에 **네이티브 접근**
+- 로컬 캐시 제공
+- SMB, NTFS, AD 완전 지원
+- 그룹 파일 공유 / 홈 디렉터리에 적합
+
+---
+
+## 1️8. Volume Gateway
+
+> **iSCSI 기반 블록 스토리지**
+
+### 구조
+
+```
+On-PremApp ─(iSCSI)─▶VolumeGateway ─▶S3 ─▶EBSSnapshot
+```
+
+### 유형
+
+- **Cached Volumes**
+    - 최근 데이터 로컬 캐시
+- **Stored Volumes**
+    - 전체 데이터 온프레미스
+    - 주기적 S3 백업
+
+---
+
+## 1️9. Tape Gateway
+
+> 물리 테이프 백업을 **클라우드 가상 테이프**로 대체
+
+### 특징
+
+- 기존 테이프 백업 프로세스 유지
+- Virtual Tape Library (VTL)
+- S3 + Glacier 기반
+- iSCSI 인터페이스
+- 주요 백업 솔루션과 호환
+
+---
+
+## 2️0. Storage Gateway Hardware Appliance
+
+### 필요 배경
+
+- Storage Gateway는 **온프레미스 가상화 필요**
+
+### 대안
+
+- **전용 하드웨어 어플라이언스**
+- amazon.com에서 구매 가능
+
+### 특징
+
+- File / Volume / Tape Gateway 지원
+- CPU, 메모리, 네트워크, SSD 캐시 포함
+- 소규모 데이터센터 일일 NFS 백업에 적합
+
+---
+
+## 2️1. Storage Gateway 아키텍처
+
+### Gateway 배포 방식
+
+- VM (VMware, Hyper-V, KVM)
+- Hardware Appliance
+
+### 연결 구조 요약
+
+```
+On-Prem
+ ├─FileGateway ─▶S3/FSx
+ ├─VolumeGateway ─▶S3/EBSSnapshot
+ └─TapeGateway ─▶S3/Glacier
+```
+
+- 전송 암호화
+- Internet / Direct Connect 지원
+
+---
+
+## 2️2. AWS Transfer Family 개요
+
+> **FTP 기반 파일 전송을 AWS 스토리지 위에서 제공**
+
+### 지원 프로토콜
+
+- FTP
+- FTPS
+- SFTP
+
+### 특징
+
+- 완전관리형
+- Multi-AZ 고가용성
+- 시간당 엔드포인트 비용 + 데이터 전송 비용
+- 사용자 인증 관리 가능
+
+### 연동 인증
+
+- Microsoft AD
+- LDAP
+- Okta
+- Cognito
+- Custom Auth
+
+---
+
+## 2️3. AWS Transfer Family 아키텍처
+
+```
+User (FTP Client)
+   │
+Route53 (Optional)
+   │
+Transfer Endpoint
+   │
+IAMRole
+   │
+S3 / EFS
+```
+
+---
+
+## 2️4. AWS DataSync 개요
+
+> **대규모 데이터 동기화 서비스**
+
+### 지원 이동
+
+- On-Prem → AWS (에이전트 필요)
+- AWS → AWS (에이전트 불필요)
+
+### 대상 스토리지
+
+- S3 (모든 스토리지 클래스 포함)
+- EFS
+- FSx (모든 타입)
+
+### 특징
+
+- 예약 동기화 (시간/일/주)
+- 메타데이터 & 권한 보존
+- 최대 10Gbps 처리
+- 대역폭 제한 가능
+
+---
+
+## 2️5. DataSync On-Prem → AWS 아키텍처
+
+```
+On-PremServer
+ └─ NFS / SMB
+     │
+DataSync Agent
+     │ (TLS)
+AWS DataSync
+     │
+S3 / EFS / FSx
+```
+
+---
+
+## 2️6. DataSync AWS ↔ AWS
+
+- AWS 스토리지 간 데이터 + 메타데이터 복사
+- S3 ↔ EFS ↔ FSx 자유롭게 동기화
+
+---
+
+## 2️7. 스토리지 서비스 종합 비교
+
+- **S3**: 객체 스토리지
+- **S3 Glacier**: 장기 보관
+- **EBS**: 단일 EC2용 블록 스토리지
+- **Instance Store**: 초고속 로컬 스토리지
+- **EFS**: Linux NFS
+- **FSx Windows**: Windows 파일 시스템
+- **FSx Lustre**: HPC용
+- **FSx ONTAP**: 고호환 NAS
+- **FSx OpenZFS**: ZFS 관리형
+- **Storage Gateway**: 하이브리드 연결
+- **Transfer Family**: FTP 인터페이스
+- **DataSync**: 대규모 데이터 동기화
+- **Snow Family**: 오프라인 대용량 이동
+- **Database**: 쿼리·인덱싱 특화 워크로드

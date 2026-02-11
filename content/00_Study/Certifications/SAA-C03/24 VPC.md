@@ -1,0 +1,426 @@
+---
+title: VPC
+date: 2026-02-01
+updated: 2026-02-01
+tags:
+  - aws
+  - certification
+  - saa-c03
+  - network
+  - vpc
+draft: false
+---
+## 1️. VPC 구성
+
+> **Amazon VPC**
+> AWS 리전 내에서 논리적으로 격리된 가상 네트워크
+
+### 구성 요소 한눈에 보기
+
+```
+Region
+ └─ VPC
+     ├─Public Subnet
+     │   ├─ EC2 (Public IP)
+     │   ├─ Internet Gateway
+     │   └─ RouteTable
+     ├─ Private Subnet
+     │   ├─ EC2 (Private IP)
+     │   ├─ NAT Gateway / Instance
+     │   └─ RouteTable
+     ├─SecurityGroup
+     ├─ NACL
+     ├─ VPC Peering
+     ├─ VPC Endpoint
+     ├─ VPN / DirectConnect
+     └─ VPC Flow Logs
+```
+
+---
+
+## 2️. CIDR 이해 – IPv4
+
+### CIDR란?
+
+- **Classless Inter-Domain Routing**
+- IP 주소 범위를 정의하는 방식
+- AWS 네트워크, **Security Group, NACL** 전반에 사용
+
+### 대표 예시
+
+- `x.x.x.x/32` → 단일 IP
+    
+- `0.0.0.0/0` → 모든 IP
+    
+- `192.168.0.0/26`
+    
+    → `192.168.0.0 ~ 192.168.0.63` (64 IP)
+    
+
+---
+
+## 3️. CIDR 구성 요소
+
+### ① Base IP
+
+- IP 범위에 포함되는 시작 IP
+    
+    예: `10.0.0.0`, `192.168.0.0`
+    
+
+### ② Subnet Mask
+
+- 변경 가능한 비트 수
+- 표기법
+    - `/8` → `255.0.0.0`
+    - `/16` → `255.255.0.0`
+    - `/24` → `255.255.255.0`
+    - `/32` → `255.255.255.255`
+
+---
+
+## 4️. CIDR – Subnet Mask 상세
+
+### IP 개수 계산
+
+```
+/32 → 1 IP
+/31 → 2 IP
+/30 → 4 IP
+/29 → 8 IP
+/28 → 16 IP
+/27 → 32 IP
+/26 → 64 IP
+/25 → 128 IP
+/24 → 256 IP
+/16 → 65,536 IP
+/0  → 전체 IP
+```
+
+### Quick Memo
+
+- `/32` → 변경 불가
+- `/24` → 마지막 옥텟 변경
+- `/16` → 마지막 2옥텟 변경
+- `/8` → 마지막 3옥텟 변경
+- `/0` → 전체 변경 가능
+
+---
+
+## 5️. CIDR 연습 문제
+
+- `192.168.0.0/24`
+    - `192.168.0.0 ~ 192.168.0.255`
+- `192.168.0.0/16`
+    - `192.168.0.0 ~ 192.168.255.255`
+- `134.56.78.123/32`
+    - 단일 IP
+- `0.0.0.0/0`
+    - 모든 IP
+
+---
+
+## 6️. Public IP vs Private IP
+
+### Private IP 대역 (IANA 정의)
+
+- `10.0.0.0/8` → 대규모 네트워크
+- `172.16.0.0/12` → **AWS Default VPC**
+- `192.168.0.0/16` → 가정/소규모 네트워크
+
+👉 그 외 모든 IP는 **Public IP**
+
+---
+
+## 7️. Default VPC 특징
+
+- 모든 AWS 계정에 기본 제공
+- 서브넷 지정 없으면 Default VPC 사용
+- 기본 인터넷 연결 가능
+- EC2는 자동으로 **Public IPv4** 할당
+- Public / Private DNS 이름 제공
+
+---
+
+## 8️. VPC 기본 제약 (IPv4)
+
+- 리전당 VPC 최대 **5개**
+- VPC당 CIDR 최대 **5개**
+- CIDR 크기
+    - 최소 `/28` (16 IP)
+    - 최대 `/16` (65,536 IP)
+- 반드시 **Private IP 대역** 사용
+- 온프레미스 네트워크와 **CIDR 중복 금지**
+
+---
+
+## 9️. Subnet 개념
+
+- **AZ 단위로 생성**
+- Public / Private Subnet 분리 구성
+
+---
+
+## 10. Subnet 예약 IP (중요)
+
+> AWS는 **각 Subnet마다 5개 IP를 예약**
+
+예: `10.0.0.0/24`
+
+- `10.0.0.0` → Network Address
+- `10.0.0.1` → VPC Router
+- `10.0.0.2` → AWS DNS
+- `10.0.0.3` → Future use
+- `10.0.0.255` → Broadcast (미지원)
+
+### 시험 포인트
+
+- EC2 29대 필요 → `/27` ❌ (32-5=27)
+- `/26` ⭕ (64-5=59)
+
+---
+
+## 1️1. Internet Gateway (IGW)
+
+- VPC 리소스를 인터넷에 연결
+- **고가용성·자동 확장**
+- VPC당 1개만 연결 가능
+- **Route Table 설정 필수**
+
+---
+
+## 1️2. Route Table
+
+- 트래픽 경로 정의
+- Public Subnet 예시
+
+```
+0.0.0.0/0 → Internet Gateway
+```
+
+---
+
+## 1️3. Bastion Host
+
+> Private Subnet EC2에 SSH 접속용 중계 서버
+
+### 특징
+
+- Public Subnet에 위치
+- SSH(22) 포트만 제한 허용
+- Private EC2 SG는 Bastion SG 허용
+
+---
+
+## 1️4. NAT Instance (구형, 시험 등장)
+
+### 특징
+
+- Private Subnet → Internet 연결
+- Public Subnet에 배치
+- **Source/Destination Check 비활성화**
+- Elastic IP 필요
+- 고가용성 ❌ (ASG로 직접 구성)
+
+---
+
+## 1️5. NAT Gateway
+
+> **AWS 관리형 NAT**
+
+### 특징
+
+- 고가용성
+- 최대 **100Gbps**
+- Security Group ❌
+- AZ 단위 리소스
+- 요금: 시간 + 트래픽
+
+### 고가용성 구성
+
+- AZ별 NAT Gateway 생성
+- AZ 장애 시 해당 AZ는 NAT 불필요
+
+---
+
+## 1️6. NAT Gateway vs NAT Instance
+
+|항목|NAT Gateway|NAT Instance|
+|---|---|---|
+|가용성|AZ 내 HA|직접 구성|
+|대역폭|최대 100Gbps|인스턴스 의존|
+|관리|AWS|사용자|
+|SG|없음|있음|
+|Bastion|❌|⭕|
+
+---
+
+## 1️7. Security Group vs NACL
+
+### Security Group
+
+- 인스턴스 단위
+- **Stateful**
+- Allow만 가능
+
+### NACL
+
+- 서브넷 단위
+- **Stateless**
+- Allow / Deny
+- 규칙 번호 낮을수록 우선
+
+---
+
+## 1️8. Ephemeral Ports
+
+- 클라이언트 응답 포트
+- 예:
+    - Windows: `49152–65535`
+    - Linux: `32768–60999`
+
+👉 NACL 설정 시 **반드시 허용 필요**
+
+---
+
+## 1️9. VPC Peering
+
+- VPC 간 **사설 연결**
+- CIDR 중복 ❌
+- **비전이적 (Non-transitive)**
+- Route Table 수정 필수
+- Cross-account / Cross-region 가능
+- 동일 리전에서는 **SG 참조 가능**
+
+---
+
+## 2️0. VPC Endpoints (PrivateLink)
+
+> AWS 서비스에 **사설 네트워크**로 접근
+
+### Interface Endpoint
+
+- ENI 생성
+- 대부분 서비스 지원
+- 비용 발생
+
+### Gateway Endpoint
+
+- S3, DynamoDB 전용
+- Route Table 대상
+- **무료**
+
+👉 시험에서는 **S3 = Gateway Endpoint 우선**
+
+---
+
+## 2️1. VPC Flow Logs
+
+- 네트워크 트래픽 기록
+- 레벨
+    - VPC / Subnet / ENI
+- 대상
+    - CloudWatch Logs
+    - S3
+    - Kinesis Firehose
+
+### 주요 필드
+
+- `srcaddr`, `dstaddr`
+- `srcport`, `dstport`
+- `action` (ACCEPT / REJECT)
+
+---
+
+## 2️2. Site-to-Site VPN
+
+### 구성 요소
+
+- **VGW** (AWS)
+- **CGW** (On-Prem)
+- Public Internet 기반
+- Route Propagation 필수
+
+---
+
+## 2️3. VPN CloudHub
+
+- 다중 지점 VPN 연결
+- Hub-and-Spoke 구조
+- 저비용
+
+---
+
+## 2️4. Direct Connect (DX)
+
+- 전용 사설 회선
+- 높은 대역폭, 낮은 지연
+- Public + Private 리소스 접근
+- 암호화 ❌ (필요 시 VPN 병행)
+
+---
+
+## 2️5. Transit Gateway
+
+> **대규모 허브 앤 스포크 네트워크**
+
+- VPC, VPN, DX 연결
+- 전이적 라우팅
+- ECMP 지원
+- Cross-account 공유 가능
+- 멀티 리전 TGW 피어링
+
+---
+
+## 2️6. Traffic Mirroring
+
+- ENI 트래픽 복제
+- 보안 장비로 전달
+- IDS / IPS / 분석용
+
+---
+
+## 2️7. IPv6 개요
+
+- IPv4 고갈 대응
+- 모든 IPv6는 **Public**
+- 듀얼 스택 지원
+- IPv4 비활성화 ❌
+
+---
+
+## 2️8. Egress-only Internet Gateway
+
+- **IPv6 전용 NAT**
+- Outbound만 허용
+- Inbound 차단
+
+---
+
+## 2️9. 비용 & 네트워크 최적화
+
+### 핵심 포인트
+
+- Public IP보다 **Private IP 사용**
+- 같은 AZ 내 통신이 가장 저렴
+- S3 접근:
+    - NAT ❌
+    - **Gateway Endpoint ⭕**
+
+---
+
+## 3️0. AWS Network Firewall
+
+> VPC 전체 L3~L7 보호
+
+- Stateful / Stateless 규칙
+- 수천 개 규칙
+- 정규식, 도메인 기반 제어
+- 로그: S3 / CloudWatch / Firehose
+- Firewall Manager로 중앙 관리
+
+---
+
+### ✅ VPC 요약
+
+> CIDR → VPC → Subnet → Routing → 보안(SG/NACL) → 연결(IGW/NAT/VPN/DX) → 확장(TGW/Endpoints) → 모니터링(Flow Logs)
