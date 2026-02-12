@@ -4,7 +4,6 @@ draft: false
 tags:
   - 10_Project
 ---
-# 🏗 Projects
 
 직접 설계하고 구현한 시스템 정리
 

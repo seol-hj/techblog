@@ -1,10 +1,9 @@
 ---
-title: AWS SAA-C03
+title: 🎓 AWS SAA-C03
 draft: false
 tags:
   - SAA_C03
 ---
-# 🎓 AWS Solutions Architect – Associate (SAA-C03)
 
 > [!info]
 > 시험 대비 학습 기록

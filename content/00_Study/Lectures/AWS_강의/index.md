@@ -1,11 +1,9 @@
 ---
-title: AWS 강의 정리
+title: ☁️ AWS 강의 정리
 draft: false
 tags:
   - AWS_강의
 ---
-
-# ☁️ AWS 강의 정리
 
 > [!info]
 > 강의 기반 AWS 핵심 개념과 아키텍처 흐름 정리

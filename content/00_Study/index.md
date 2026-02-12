@@ -4,7 +4,6 @@ draft: false
 tags:
   - 00_Study
 ---
-# 📚 Study
 
 AWS 학습 기록 및 강의 요약 정리 공간
 

@@ -59,7 +59,10 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer({folderClickBehavior: "link",}),
+    Component.Explorer({
+      folderClickBehavior: "link",
+      filterFn: (node) => node.data?.tags?.includes("explorerexclude") !== true,
+    }),
   ],
   right: [
     Component.Graph(),
@@ -83,7 +86,10 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer({folderClickBehavior: "link",}),
+    Component.Explorer({
+      folderClickBehavior: "link",
+      filterFn: (node) => node.data?.tags?.includes("explorerexclude") !== true,
+  }),
   ],
   right: [],
 }
