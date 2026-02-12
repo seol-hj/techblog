@@ -31,7 +31,7 @@ PostgreSQL의 핵심 특징은 **WAL (Write-Ahead Log)** 기반 복제.
 
 ## 3. PostgreSQL Streaming Replication
 
-![](img/PostgreSQL%20이중화-20260212.png)
+![](img/20260212-21.png)
 
 ### 구조
 
@@ -188,7 +188,7 @@ SELECT pg_is_in_recovery();
 
 ## 9. 장애 전환(Failover) 개념 정리
 
-![](img/PostgreSQL%20이중화-20260212-1.png)
+![](img/20260212-22.png)
 
 ### 수동 승격
 

@@ -595,9 +595,9 @@ mongosh --eval 'rs.status().members.map(m => ({name:m.name, stateStr:m.stateStr}
 
 ## MongoDB Replica Set에서 **남은 노드 중 누가 Primary가 되는 기준**
 
-![](img/MongoDB%20실습-20260212.png)
+![](img/20260212-13.png)
 
-![](img/MongoDB%20실습-20260212-1.png)
+![](img/20260212-14.png)
 
 ---
 
