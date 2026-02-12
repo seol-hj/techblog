@@ -22,7 +22,7 @@ tags:
 
 ## 2. MySQL 이중화 기본 구조
 
-![](content/20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/20260212-16.png)
+![](20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/20260212-16.png)
 
 ### 구조 요약
 
@@ -226,8 +226,8 @@ RESET REPLICA ALL;
 
 ## 9. 실무에서는 이렇게 확장된다
 
-![](content/20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/20260212-17.png)
-![](content/20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/20260212-18.png)
+![](20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/20260212-17.png)
+![](20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/20260212-18.png)
 
 ### 실무 구성
 
