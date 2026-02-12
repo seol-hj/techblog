@@ -3,6 +3,9 @@ title: AWS 클라우드 기초
 date: 2026-02-01
 updated: 2026-02-01
 tags:
+  - 00_Study
+  - Lectures
+  - AWS_강의
   - aws
 draft: false
 ---

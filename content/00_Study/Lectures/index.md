@@ -1,6 +1,9 @@
 ---
-title: Lecture
+title: 🎥 Lecture Notes
 draft: false
+tags:
+  - 00_Study
+  - Lectures
 ---
 
 # 🎥 Lecture Notes

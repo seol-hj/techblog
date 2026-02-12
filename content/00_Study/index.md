@@ -1,6 +1,8 @@
 ---
 title: 📚 Study
 draft: false
+tags:
+  - 00_Study
 ---
 # 📚 Study
 

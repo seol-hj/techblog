@@ -3,6 +3,9 @@ title: CI/CD 서비스
 date: 2026-02-01
 updated: 2026-02-01
 tags:
+  - 00_Study
+  - Lectures
+  - AWS_강의
   - aws
   - devops
   - architecture
