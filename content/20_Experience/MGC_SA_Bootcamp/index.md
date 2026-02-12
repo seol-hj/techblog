@@ -6,27 +6,21 @@ tags:
 ---
 
 > [!info]
-> 클라우드 인프라 설계 역량 강화를 목표로 진행한 실무 중심 부트캠프
+> 운영체제, 네트워크, DB, 프로그래밍, 컨테이너, 서버리스, AWS/Google 클라우드 서비스 등 클라우드 아키텍트 설계 기술 학습
+> AWS Cloud 실제 사례 기반 프로젝트 수행
 
 ---
 
 ## 📌 주요 내용
 
-- AWS 인프라 설계 실습
-- VPC / EC2 / ALB 구조 설계
-- 서버리스 아키텍처 실습
-- 팀 프로젝트 진행
+- 서버 운영체제, 네트워크 기초, 데이터베이스, 파이썬 프로그래밍, 쿠버네티스 아키텍처 설계, ICT 인프라 구조, KVM 및 Docker 가상화
+- AWS 클라우드 기술 기초, AWS 아키텍처 설계, Google 클라우드 핵심 서비스 및 아키텍처 설계, DevOps 환경에서의 CI/CD, 배포 자동화를 위한 Terraform
 
 ---
 
 ## 📂 학습 기록
 
-- [[week1]]
-- [[week2]]
-- [[final-project]]
-
----
-
-## 💡 배운 점
-
-- 단순 서비스 이해가 아니라 구조 설계 관점으로 접근하는 법을 익힘
+- [[content/20_Experience/MGC_SA_Bootcamp/1 네트워크 기초/index|네트워크 기초]]
+- [[content/20_Experience/MGC_SA_Bootcamp/2 서버운영시스템/index|서버운영시스템]]
+- [[content/20_Experience/MGC_SA_Bootcamp/3 데이터베이스/index|데이터베이스]]
+- [[content/20_Experience/MGC_SA_Bootcamp/4 KVM_Docker/index|KVM & Docker]]

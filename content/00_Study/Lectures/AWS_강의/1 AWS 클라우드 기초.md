@@ -3,7 +3,7 @@ title: AWS 클라우드 기초
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
+  - AWS
 draft: false
 ---
 ## 1️. 클라우드 기초

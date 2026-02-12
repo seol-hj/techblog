@@ -9,4 +9,4 @@ tags:
 
 ---
 
-- [[20_Experience/MGC_SA_Bootcamp|Megazone Cloud Bootcamp]]
+- [[content/20_Experience/MGC_SA_Bootcamp/index|Megazone Cloud Bootcamp]]

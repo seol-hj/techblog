@@ -3,13 +3,13 @@ title: SQS, SNS, Kinesis
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
-  - certification
-  - saa-c03
-  - integration
-  - sqs
-  - sns
-  - kinesis
+  - AWS
+  - Certification
+  - SAA-C03
+  - Integration
+  - SQS
+  - SNS
+  - Kinesis
 draft: false
 ---
 ## 1️. 애플리케이션 간 통신

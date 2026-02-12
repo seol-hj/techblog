@@ -3,13 +3,13 @@ title: Amazon RDS
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
-  - certification
-  - saa-c03
-  - database
-  - rds
-  - aurora
-  - elasticache
+  - AWS
+  - Certification
+  - SAA-C03
+  - Database
+  - RDS
+  - Aurora
+  - ElastiCache
 draft: false
 ---
 

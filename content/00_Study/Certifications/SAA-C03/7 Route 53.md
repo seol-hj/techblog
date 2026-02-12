@@ -3,12 +3,12 @@ title: Route 53
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
-  - certification
-  - saa-c03
-  - network
-  - route53
-  - dns
+  - AWS
+  - Certification
+  - SAA-C03
+  - Network
+  - Route53
+  - DNS
 draft: false
 ---
 ## 🧠 DNS

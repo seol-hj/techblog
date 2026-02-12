@@ -3,9 +3,9 @@ title: CI/CD 서비스
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
-  - devops
-  - architecture
+  - AWS
+  - DevOps
+  - Architecture
 draft: false
 ---
 ## 🧭 CI/CD

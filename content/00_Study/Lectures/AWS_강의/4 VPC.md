@@ -3,9 +3,9 @@ title: VPC
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
-  - vpc
-  - network
+  - AWS
+  - VPC
+  - Network
 draft: false
 ---
 # 📌 VPC

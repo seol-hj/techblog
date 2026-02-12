@@ -3,12 +3,12 @@ title: CloudFront & Global Accelerator
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
-  - certification
-  - saa-c03
-  - network
-  - cloudfront
-  - golbal-accelerator
+  - AWS
+  - Certification
+  - SAA-C03
+  - Network
+  - Cloudfront
+  - Golbal-Accelerator
 draft: false
 ---
 ## ☁️ Amazon CloudFront

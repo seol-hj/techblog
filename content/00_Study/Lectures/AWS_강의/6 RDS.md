@@ -3,8 +3,8 @@ title: RDS
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
-  - database
+  - AWS
+  - Database
 draft: false
 ---
 ## 1️. Amazon RDS

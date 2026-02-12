@@ -3,11 +3,11 @@ title: VPC
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
-  - certification
-  - saa-c03
-  - network
-  - vpc
+  - AWS
+  - Certification
+  - SAA-C03
+  - Network
+  - VPC
 draft: false
 ---
 ## 1️. VPC 구성

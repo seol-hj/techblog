@@ -3,11 +3,11 @@ title: AWS Cloud 개요
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - aws
-  - certification
-  - saa-c03
-  - cloud
-  - architecture
+  - AWS
+  - Certification
+  - SAA-C03
+  - Cloud
+  - Architecture
 draft: false
 ---
 
