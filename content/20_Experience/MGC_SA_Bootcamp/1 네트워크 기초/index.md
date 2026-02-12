@@ -6,9 +6,9 @@ tags:
 ---
 
 > [!info]
-> TCP/IP, L2/L3/L4/L7 스위치
-> VLAN, Routing, Gateway 이중화
-> NAT, ACL 트래픽 제어
+> TCP/IP, L2/L3/L4/L7 스위치  
+> VLAN, Routing, Gateway 이중화  
+> NAT, ACL 트래픽 제어  
 > Amazon VPC 개요 및 생성 실습
 
 ---

@@ -7,7 +7,7 @@ tags:
   - Cloudflare
 ---
 
->기존 Notion에서 작성하던 기록을
+>기존 Notion에서 작성하던 기록을  
 >Obsidian으로 변경하는 과정
 
 ```
