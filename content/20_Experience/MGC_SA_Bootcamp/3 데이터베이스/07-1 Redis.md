@@ -30,7 +30,6 @@ tags:
 
 ```
 Client → Web Server → Database
-
 ```
 
 ### 문제점
@@ -42,7 +41,7 @@ Client → Web Server → Database
 ---
 
 ### Redis가 추가된 구조
-![[img/Pasted image 20260212141850.png]]
+![](img/Redis-20260212.png)
 
 ```
 Client → Web Server → Redis → Database
@@ -136,7 +135,7 @@ session:SID123 → user_id=1001
 
 ## 6. Redis 기본 동작 흐름 (로그인 예시)
 
-![[img/Pasted image 20260212141915.png]]
+![](img/Redis-20260212-1.png)
 
 ### 로그인 최초 요청
 

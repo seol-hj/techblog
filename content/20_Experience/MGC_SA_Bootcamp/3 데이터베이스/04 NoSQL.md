@@ -53,8 +53,8 @@ tags:
 
 ## 4. NoSQL 유형 분류
 
-![[img/Pasted image 20260212141622.png]]
-![[img/Pasted image 20260212141632.png]]
+![](img/NoSQL-20260212.png)
+![](img/NoSQL-20260212-1.png)
 
 ### ① Key-Value Store
 
@@ -103,7 +103,6 @@ tags:
   "skills": ["AWS", "Docker", "Kubernetes"],
   "created_at": "2026-01-01"
 }
-
 ```
 
 ➡ **컬럼 추가/삭제 자유**

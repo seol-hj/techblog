@@ -7,7 +7,7 @@ tags:
   - MongoDB
 ---
 
-![[img/Pasted image 20260212141728.png]]
+![](img/MongoDB-20260212.png)
 ## 1. MongoDB란 무엇인가?
 
 - *MongoDB**는

@@ -151,7 +151,6 @@ orders(customer_id FK)
 
 ```sql
 price INT CHECK (price > 0)
-
 ```
 
 ---
@@ -171,7 +170,6 @@ price INT CHECK (price > 0)
 ```sql
 ON DELETE RESTRICT
 ON UPDATE CASCADE
-
 ```
 
 📌 실무 사고의 90%가 여기서 발생
