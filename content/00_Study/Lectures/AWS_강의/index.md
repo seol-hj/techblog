@@ -1,6 +1,8 @@
 ---
 title: AWS 강의 정리
 draft: false
+tags:
+    - AWS_강의
 ---
 
 # ☁️ AWS 강의 정리

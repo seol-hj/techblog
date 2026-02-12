@@ -1,3 +1,8 @@
+---
+title: Lecture
+draft: false
+---
+
 # 🎥 Lecture Notes
 
 강의를 기반으로 정리한 개념 및 실습 기록
