@@ -53,8 +53,8 @@ tags:
 
 ## 4. NoSQL 유형 분류
 
-![](img/NoSQL-20260212.png)
-![](img/NoSQL-20260212-1.png)
+![](content/20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/NoSQL-20260212.png)
+![](content/20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/NoSQL-20260212-1.png)
 
 ### ① Key-Value Store
 

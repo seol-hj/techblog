@@ -41,7 +41,7 @@ Client → Web Server → Database
 ---
 
 ### Redis가 추가된 구조
-![](img/Redis-20260212.png)
+![](content/20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/Redis-20260212.png)
 
 ```
 Client → Web Server → Redis → Database
@@ -135,7 +135,7 @@ session:SID123 → user_id=1001
 
 ## 6. Redis 기본 동작 흐름 (로그인 예시)
 
-![](img/Redis-20260212-1.png)
+![](content/20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/Redis-20260212-1.png)
 
 ### 로그인 최초 요청
 

@@ -16,4 +16,4 @@ tags:
 
 ## 📌 학습 기록
 
-- [[01 Linux|Linux]]
+- [[content/20_Experience/MGC_SA_Bootcamp/2_서버운영시스템/01 Linux|Linux]]

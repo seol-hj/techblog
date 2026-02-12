@@ -20,7 +20,7 @@ tags:
 
 ## 📂 학습 기록
 
-- [[content/20_Experience/MGC_SA_Bootcamp/1 네트워크 기초/index|네트워크 기초]]
-- [[content/20_Experience/MGC_SA_Bootcamp/2 서버운영시스템/index|서버운영시스템]]
-- [[content/20_Experience/MGC_SA_Bootcamp/3 데이터베이스/index|데이터베이스]]
-- [[content/20_Experience/MGC_SA_Bootcamp/4 KVM_Docker/index|KVM & Docker]]
+- [[content/20_Experience/MGC_SA_Bootcamp/1_네트워크_기초/index|네트워크 기초]]
+- [[content/20_Experience/MGC_SA_Bootcamp/2_서버운영시스템/index|서버운영시스템]]
+- [[content/20_Experience/MGC_SA_Bootcamp/3_데이터베이스/index|데이터베이스]]
+- [[content/20_Experience/MGC_SA_Bootcamp/4_KVM_Docker/index|KVM & Docker]]

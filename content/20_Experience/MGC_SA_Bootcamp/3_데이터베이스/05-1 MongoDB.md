@@ -7,7 +7,7 @@ tags:
   - MongoDB
 ---
 
-![](img/20260212-15.png)
+![](content/20_Experience/MGC_SA_Bootcamp/3_데이터베이스/img/20260212-15.png)
 ## 1. MongoDB란 무엇인가?
 
 - *MongoDB**는
