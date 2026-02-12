@@ -1,6 +1,8 @@
 ---
 title: 🌱 Experience
 draft: false
+tags:
+  - 20_Experience
 ---
 
 # 🌱 Experience

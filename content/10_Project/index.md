@@ -1,6 +1,8 @@
 ---
 title: 🏗 Projects
 draft: false
+tags:
+  - 10_Project
 ---
 # 🏗 Projects
 

@@ -1,6 +1,8 @@
 ---
 title: 메가존클라우드 부트캠프
 draft: false
+tags:
+  - MGC_SA_Bootcamp
 ---
 
 # 메가존클라우드 부트캠프

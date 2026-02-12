@@ -2,8 +2,6 @@
 title: AWS 강의 정리
 draft: false
 tags:
-  - 00_Study
-  - Lectures
   - AWS_강의
 ---
 

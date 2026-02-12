@@ -3,9 +3,6 @@ title: RDS
 date: 2026-02-01
 updated: 2026-02-01
 tags:
-  - 00_Study
-  - Lectures
-  - AWS_강의
   - aws
   - database
 draft: false

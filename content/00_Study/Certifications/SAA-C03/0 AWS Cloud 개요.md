@@ -1,5 +1,5 @@
 ---
-title: ☁️ AWS Cloud 개요
+title: AWS Cloud 개요
 date: 2026-02-01
 updated: 2026-02-01
 tags:

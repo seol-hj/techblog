@@ -1,6 +1,8 @@
 ---
 title: 🎓 Certifications
 draft: false
+tags:
+  - Certifications
 ---
 # 🎓 Certifications
 

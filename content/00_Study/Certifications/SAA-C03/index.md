@@ -1,6 +1,8 @@
 ---
 title: AWS SAA-C03
 draft: false
+tags:
+  - SAA_C03
 ---
 # 🎓 AWS Solutions Architect – Associate (SAA-C03)
 
