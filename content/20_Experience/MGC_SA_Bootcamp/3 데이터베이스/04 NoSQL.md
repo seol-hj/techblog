@@ -53,8 +53,8 @@ tags:
 
 ## 4. NoSQL 유형 분류
 
-![[Pasted image 20260212141622.png]]
-![[Pasted image 20260212141632.png]]
+![[img/Pasted image 20260212141622.png]]
+![[img/Pasted image 20260212141632.png]]
 
 ### ① Key-Value Store
 

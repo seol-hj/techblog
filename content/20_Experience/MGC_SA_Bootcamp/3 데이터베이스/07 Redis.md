@@ -42,7 +42,7 @@ Client → Web Server → Database
 ---
 
 ### Redis가 추가된 구조
-![[Pasted image 20260212141850.png]]
+![[img/Pasted image 20260212141850.png]]
 
 ```
 Client → Web Server → Redis → Database
@@ -136,7 +136,7 @@ session:SID123 → user_id=1001
 
 ## 6. Redis 기본 동작 흐름 (로그인 예시)
 
-![[Pasted image 20260212141915.png]]
+![[img/Pasted image 20260212141915.png]]
 
 ### 로그인 최초 요청
 
