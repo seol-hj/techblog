@@ -26,10 +26,10 @@ tags:
 
 ## 2. Quartz 레포 clone
 
-1.  Quartz 레포 clone
-	`git clone https://github.com/jackyzha0/quartz.git`
+1.  Quartz 레포 clone  
+	`git clone https://github.com/jackyzha0/quartz.git`  
 	`cd quartz`
-2. v4 브랜치 사용
+2. v4 브랜치 사용  
 	`git checkout v4`
 
 > Obsidian 에서 content/ 만 vault 로 open
@@ -51,7 +51,7 @@ tags:
 
 
 > [!info] 자동화 방법
-> - Obsidian → Community plugins → **Git**
+> - Obsidian → Community plugins → **Git**   
 > 설정하면 :
 > - 자동 commit
 > - 자동 push 가능
