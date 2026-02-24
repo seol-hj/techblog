@@ -16,4 +16,4 @@ tags:
 
 ## 📌 학습 기록
 
-- [[Experience/MGC_SA_Bootcamp/4_KVM_Docker/01_KVM|KVM]]
+- [[Experience/MGC_SA_Bootcamp/4_KVM_Docker/01_Virtualization|KVM]]
