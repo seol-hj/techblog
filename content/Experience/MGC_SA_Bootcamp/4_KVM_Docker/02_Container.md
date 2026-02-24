@@ -193,11 +193,32 @@ docker history nginx
 
 #### docker build
 ```
+docker build -f <DOCKERFILE_PATH> -t <IMAGE:TAG> <BUILD_CONTEXT>
+```
+
+```
 docker build -t myimage:1.0 .
 ```
 - `-t` : 이미지 이름과 태그
 - `.` : build context (현재 디렉터리)
 	- build context 안의 모든 파일은 Docker 데몬으로 전송
+
+- `<BUILD_CONTEXT>`
+	- Docker 빌드시 `<BUILD_CONTEXT>` 디렉터리를 스냅샷처럼 묶어서 빌더로 전달
+	- Dockerfile의 `COPY`, `ADD`는 컨텍스트 안의 파일만 가져올 수 있음
+	- Dockerfile에 상대 경로가 있다면 기준은 항상 빌드 컨텍스트
+
+- `docker build` 주요 옵션
+
+| Option             | Short | 설명                      | 언제 쓰나(실무 관점)       |
+| ------------------ | ----- | ----------------------- | ------------------ |
+| `--build-arg` (단수) |       | Dockerfile의 `ARG`에 값 전달 | OS/버전 등 빌드 분기      |
+| `--file`           | `-f`  | 사용할 Dockerfile 경로 지정    | 여러 Dockerfile 운영   |
+| `--label`          |       | 이미지 메타데이터 라벨 추가         | 버전/빌드정보 기록         |
+| `--no-cache`       |       | 캐시 없이 처음부터 빌드           | 캐시 오염 의심/최신 패키지 확인 |
+| `--platform`       |       | 아키텍처 지정                 | amd64/arm64 교차 빌드  |
+| `--pull`           |       | 베이스 이미지 강제 최신 pull      | 보안 패치 반영           |
+| `--tag`            | `-t`  | 이미지 이름:태그 지정            | 버전 관리/배포           |
 
 #### 2-3-1. 주요 명령어
 
@@ -233,6 +254,21 @@ docker build -t myimage:1.0 .
 	- `CMD` → 기본 실행 명령 (덮어쓰기 가능)
 	- `ENTRYPOINT` → 고정 실행 명령
 		- CMD 단독 사용이 가장 흔함
+
+| Instruction  | 설명                    | 동작 시점    |
+| ------------ | --------------------- | -------- |
+| `FROM`       | 베이스 이미지 지정            | 빌드       |
+| `ARG`        | 빌드 타임 변수              | 빌드       |
+| `ENV`        | 런타임 환경 변수             | 실행(컨테이너) |
+| `ADD`        | 복사 + (압축 해제/URL 등) 기능 | 빌드       |
+| `COPY`       | 파일/디렉터리 복사(권장)        | 빌드       |
+| `LABEL`      | 이미지 라벨(메타데이터)         | 빌드       |
+| `EXPOSE`     | 포트 “문서화” 메타데이터        | 빌드(메타)   |
+| `USER`       | 실행 사용자 지정             | 실행       |
+| `WORKDIR`    | 작업 디렉터리 지정            | 빌드/실행    |
+| `RUN`        | 빌드 중 명령 실행(레이어 생성)    | 빌드       |
+| `CMD`        | 기본 실행 명령(덮어쓰기 쉬움)     | 실행       |
+| `ENTRYPOINT` | “항상 실행”되는 명령          | 실행       |
 
 >Dockerfile의 모든 명령이 이미지 레이어 X  
 >일부 명령은 메타데이터만 변경
@@ -275,6 +311,9 @@ docker build -t myimage:1.0 .
 	- `docker history`에 용량 0B로 표시 (레이어 X)
 		- 0B로 표시되는 항목 = 레이어 없는 명령
 
+- `RUN` vs `CMD`
+	- `RUN` : 이미지 만들 때 실행 (결과가 이미지 레이어로 굳음)
+	- `CMD / ENTRYPOINT` : 컨테이너 시작할 때 실행 (PID 1 프로세스)
 #### 2-3-2. dockerignore
 
 - build context 전송 최적화
@@ -293,6 +332,66 @@ docker build -t myimage:1.0 .
 	- 참조(tag)만 사라진 상태
 
 - 같은 태그로 이미지 재빌드 → 기존 이미지 dangling 상태
+
+```
+docker images -f dangling=true  
+docker image prune
+```
+
+### 2-5. Image Digest (이미지 실제 식별자)
+
+- Digest
+	- 이미지 내용 기준으로 계산된 SHA256 해시
+	- 이미지 진짜 신원
+
+| 구분    | Tag | Digest |
+| ----- | --- | ------ |
+| 변경 가능 | ⭕   | ❌      |
+| 의미    | 별명  | 고유 지문  |
+| 신뢰성   | 낮음  | 높음     |
+- Docker는 내부적으로 digest 기준으로 이미지 관리
+
+```
+docker images --digests  
+docker inspect nginx
+```
+
+**Dangling과 관계**
+- dangling image도 digest는 유지
+- 태그만 X
+
+### 2-6. 많이 사용하는 BASE 이미지
+
+1. scratch
+	- 빈 이미지
+	- 정적 바이너리(ex Go static) 같은 최소 실행 파일만 넣을 때 사용
+	- 레이어를 추가하지 않는다는 의미: scratch 자체는 빈 기반 → 필요한 파일만 올리게 됨
+
+2. alpine
+	- 매우 작은 리눅스(경량)
+	- 패키지 관리 : `apk`
+	- 디버깅 도구 넣기 쉬움, 작고 빠름
+
+3. distroless
+	- 실행에 필요한 런타임만 포함 (쉘, 패키지 매니저 X)
+	- 운영 환경에서 공격 표면 감소
+	- 디버깅은 어렵지만 보안/경량에 유리
+
+### 2-7. Multi-stage build
+
+- 빌드에 필요한 도구 / 실행에 필요한 파일 은 다름
+	- 빌드 스테이지 : 컴파일러/빌드도구 포함 (무거워도 O)
+	- 런타임 스테이지 : 실행 파일만 포함 (가볍고 안전)
+- 이미지 크기 감소
+- 보안 강화 (운영 이미지에 bash/curl/gcc 등 제거)
+- 운영 표준 패턴
+
+>[!note] 좋은 Docker 이미지  
+>작다  
+>재현 가능  
+>불필요한 파일 X  
+>태그와 digest 개념이 명확  
+>빌드 캐시를 효율적으로 사용  
 
 ---
 
