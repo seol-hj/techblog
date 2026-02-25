@@ -1,8 +1,8 @@
 ---
 title: Syslog
 draft: false
-date: 2026-02-24
-updated: 2026-02-24
+date: 2026-02-25
+updated: 2026-02-25
 tags:
   - Container
   - Docker
