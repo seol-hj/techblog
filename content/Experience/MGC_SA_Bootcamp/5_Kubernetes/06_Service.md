@@ -1,8 +1,8 @@
 ---
 title: Service - ClusterIP, NodePort, LoadBalancer
 draft: false
-date: 2026-02-25
-updated: 2026-02-25
+date: 2026-03-03
+updated: 2026-03-03
 tags:
   - Containers
   - Kubernetes
