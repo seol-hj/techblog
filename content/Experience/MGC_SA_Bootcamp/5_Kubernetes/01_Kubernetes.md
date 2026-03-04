@@ -166,7 +166,7 @@ tags:
 	- etcd에 특정 Pod 존재 필요 데이터 기록
 		- 실행 X
 
-4. Controller 감지
+4. Controller 감지 - [Controller 종류](Experience/MGC_SA_Bootcamp/5_Kubernetes/05_Controller.md)
 	- ex)
 		- Deployment Controller
 		- ReplicaSet Controller

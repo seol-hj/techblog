@@ -88,18 +88,18 @@ kubectl delete namespace dev
 ### Namespace 리소스
 
 1. Namespace 에 속하는 리소스
-	- Pod
+	- [Pod](Experience/MGC_SA_Bootcamp/5_Kubernetes/03_Pod.md)
 	- Deployment
-	- Service
+	- [Service](Experience/MGC_SA_Bootcamp/5_Kubernetes/06_Service.md)
 	- ConfigMap
 	- Secret
-	- PVC
+	- PVC - [k8s 저장소](Experience/MGC_SA_Bootcamp/5_Kubernetes/08_PV_PVC_StorageClass.md)
 
 2. Cluster 범위 리소스
 	- Node
 	- Namespace
 	- PersistentVolume (PV)
-	- StorageClass
+	- StorageClass - [k8s 저장소](Experience/MGC_SA_Bootcamp/5_Kubernetes/08_PV_PVC_StorageClass.md)
 	- ClusterRole
 	- CRD
 
