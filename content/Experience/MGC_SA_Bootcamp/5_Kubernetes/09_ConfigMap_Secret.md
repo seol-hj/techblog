@@ -1,5 +1,5 @@
 ---
-title: ConfigMap과 Secret
+title: Security
 draft: false
 date: 2026-03-04
 updated: 2026-03-04

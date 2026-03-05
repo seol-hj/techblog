@@ -1,5 +1,5 @@
 ---
-title: Controller와 그 종류
+title: Controller
 draft: false
 date: 2026-02-25
 updated: 2026-02-25

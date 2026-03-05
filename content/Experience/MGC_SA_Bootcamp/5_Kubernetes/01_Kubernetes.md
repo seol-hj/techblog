@@ -1,5 +1,5 @@
 ---
-title: 쿠버네티스
+title: Kubetnetes
 draft: false
 date: 2026-02-25
 updated: 2026-02-25

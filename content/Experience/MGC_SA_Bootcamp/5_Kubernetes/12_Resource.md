@@ -1,5 +1,5 @@
 ---
-title: k8s 리소스 관리
+title: Resource 관리
 draft: false
 date: 2026-03-04
 updated: 2026-03-04
@@ -61,3 +61,10 @@ tags:
 
 - replicas를 사용하는 리소스에 적용
 - cpu, memory 등의 사용량 측정 → 정해진 값 이상 시 replicas를 수평 확장 or 내려갈 시 줄임
+
+- *metrics-server 사용 실습*
+	- HPA는 메트릭이 없으면 동작 X
+	- CPU, Memory 기준
+	- `Prometheus` : 클러스터의 모든 상태를 기록하는 거대한 데이터베이스
+	- `Prometheus Adapter` : Prometheus에 쌓인 데이터를 HPA가 이해할 수 있는 규격으로 전달
+		- 현재 접속 중인 사용자 수, 대기 중인 메시지 큐의 개수 등을 기준으로 파드 조절

@@ -1,5 +1,5 @@
 ---
-title: Kubernetes의 권한
+title: 권한 관리
 draft: false
 date: 2026-03-04
 updated: 2026-03-04

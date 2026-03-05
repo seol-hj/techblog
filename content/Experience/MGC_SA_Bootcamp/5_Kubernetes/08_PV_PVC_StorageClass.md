@@ -1,5 +1,5 @@
 ---
-title: Kubernetes의 저장소
+title: Storage
 draft: false
 date: 2026-03-04
 updated: 2026-03-04

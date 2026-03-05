@@ -1,5 +1,5 @@
 ---
-title: Kubernetes 의 YAML
+title: YAML
 draft: false
 date: 2026-02-25
 updated: 2026-02-25

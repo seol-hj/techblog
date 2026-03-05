@@ -23,7 +23,10 @@ tags:
 - [Service - ClusterIP, NodePort, LoadBalancer](Experience/MGC_SA_Bootcamp/5_Kubernetes/06_Service.md)
 - [Ingress](Experience/MGC_SA_Bootcamp/5_Kubernetes/07_Ingress.md)
 - [k8s 저장소](Experience/MGC_SA_Bootcamp/5_Kubernetes/08_PV_PVC_StorageClass.md)
-- [k8s에서 ConfigMap과 Secret](Experience/MGC_SA_Bootcamp/5_Kubernetes/09_ConfigMap_Secret.md)
+- [k8s 보안](Experience/MGC_SA_Bootcamp/5_Kubernetes/09_ConfigMap_Secret.md)
 - [k8s 권한 관리](Experience/MGC_SA_Bootcamp/5_Kubernetes/10_RBAC_ServiceAccount.md)
 - [Helm](Experience/MGC_SA_Bootcamp/5_Kubernetes/11_Helm.md)
-- 
+- [Resource 관리](Experience/MGC_SA_Bootcamp/5_Kubernetes/12_Resource.md)
+- [Probe - Health Check](Experience/MGC_SA_Bootcamp/5_Kubernetes/13_Probe.md)
+
+- [번외 실습](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc.md)
