@@ -24,3 +24,5 @@ tags:
 - [[Experience/MGC_SA_Bootcamp/2_서버운영시스템/index|서버운영시스템]]
 - [[Experience/MGC_SA_Bootcamp/3_데이터베이스/index|데이터베이스]]
 - [[Experience/MGC_SA_Bootcamp/4_KVM_Docker/index|KVM & Docker]]
+- [Kubernetes](Experience/MGC_SA_Bootcamp/5_Kubernetes/index.md)
+- [온프레미스 인프라 구조](Experience/MGC_SA_Bootcamp/6_온프레미스_인프라/index.md)
