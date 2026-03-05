@@ -28,5 +28,5 @@ tags:
 - [Helm](Experience/MGC_SA_Bootcamp/5_Kubernetes/11_Helm.md)
 - [Resource 관리](Experience/MGC_SA_Bootcamp/5_Kubernetes/12_Resource.md)
 - [Probe - Health Check](Experience/MGC_SA_Bootcamp/5_Kubernetes/13_Probe.md)
-
-- [번외 실습](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc.md)
+---
+- [번외 실습](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/index.md)
