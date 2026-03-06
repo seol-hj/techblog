@@ -1,5 +1,5 @@
 ---
-title: 번외. 쿠버네티스 기반 게임 플랫폼 구축 실습
+title: 번외. Kubernetes 기반 실시간 테트리스 게임 서비스 구축
 draft: false
 tags:
   - Kubernetes
@@ -8,9 +8,15 @@ tags:
 
 *실습을 하며 진행했지만 이해하는데 도움이 되고자 k8s 배운 내용을 최대한 활용하여 간단한 서비스를 만들어보려 함*
 
+> [!info] 
+> VM 3대로 구성한 Kubernetes 클러스터 환경에 React + FastAPI + PostgreSQL + Redis 기반의 실시간 테트리스 게임 서비스 설계·개발·배포 프로젝트  
+> WebSocket을 활용해 실시간 랭킹 기능 구현  
+> Kubernetes의 Deployment, StatefulSet, Service, Ingress, ConfigMap, Secret, PVC, RBAC, HPA를 실제 서비스 구조에 적용  
+> Helm으로 매니페스트 패키징, Prometheus/Grafana로 리소스 및 트래픽 상태 모니터링하여 클라우드 네이티브 운영 환경 구성
+
 ## 프로젝트 목표
 
->1. **k8s** : Pod, Deployment, Service, Ingress, PV/PVC, ConfigMap, Secrets, RBAC, HPA 등 주요 컴포넌트 실습
+>1. **k8s** : Namespace, Pod, Controller(Deployment/StatefulSet), Service, Ingress, PV/PVC, StorageClass, ConfigMap, Secret, ServiceAccount, RBAC, Probe, HPA, Qos Class 등 주요 컴포넌트와 운영 요소를 실제 서비스에 적용
 >2. **운영 자동화/가시성** : Helm을 통한 패키징, Prometheus 모니터링, 실시간 WebSocket 통신 구현
 >3. **외부 서비스** : 로컬 VM 클러스터를 외부망에 노출
 >4. **클라우드 네이티브 설계** : React(FE) + FastAPI(BE) + PostgreSQL(DB) + Redis(Cache) 조합의 서비스 구축
@@ -19,22 +25,22 @@ tags:
 
 ## 로드맵
 
-1. **인프라 설계 (VM 3대 클러스터)**
+1. **[인프라 및 클러스터 구축](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/01_describe.md)**
 	- **환경** : VM 3대(Master 1, Worker 2) 준비
-	- **구현** : `kubeadm`을 이용한 클러스터 초기화 및 CNI(Calico) 설치
+	- **구현** : `kubeadm`, `Calico(CNI)`, `metrics-server`, `Ingress`, `MetalLB`, `StorageClass` 준비
 	- **핵심** : `kubectl`로 노드 상태 정상 확인
 
-2. **앱 개발** (Claude Code 활용)
+2. **애플리케이션 개발** (Claude Code 활용)
 	- **구현** :
 		- FE : 테트리스 게임 UI (React)
 		- BE : FastAPI 기반 게임 로직 & WebSocket 실시간 랭킹 API
 		- DB : PostgreSQL(유저 데이터), Redis(랭킹 캐시)
-	- **핵심** : `Dockerfile`을 이용해 각 서비스 컨테이너 이미지화
+	- **핵심** : `Dockerfile` 작성 및 컨테이너 이미지 준비
 
 3. **쿠버네티스 매니페스트 및 Helm 패키징**
-	- **구현** : 모든 YAML 파일을 Helm 차트 구조로 작성
-	- **활용** : ConfigMap(설정), Secrets(DB 패스워드), PV/PVC(DB 데이터 영속성), RBAC(보안 권한)
-	- **핵심** : `values.yaml`을 통해 배포 환경(환경변수 등) 효율적 관리
+	- **구현** : Deployment, Service, Ingress 등 Kubernetes 리소스 YAML 작성
+	- **활용** : ConfigMap(설정), Secret(DB 패스워드), PV/PVC(DB 데이터 영속성), RBAC(보안 권한)
+	- **핵심** : Helm Chart로 패키징하여 `values.yaml` 기반 환경 설정 관리
 
 4. **트래픽 제어 및 외부 노출**
 	- **구현** :
@@ -55,6 +61,23 @@ tags:
 | **Kubernetes** | PV/PVC, ConfigMap, Secrets, RBAC    |
 | **관리/확장**      | **Helm Chart**, HPA (자동 스케일링)       |
 | **운영/모니터링**    | Prometheus + Grafana, 외부 노출         |
+
+## Frontend
+
+React 기반 게임 UI
+- **Deployment**로 관리
+- **Service**를 통해 Ingress와 연결
+- 일반 설정값은 **ConfigMap**
+- 상태 확인은 **Readiness/Liveness Probe**
+- 기본 계정을 그대로 쓰지 않도록 **ServiceAccount** 적용 가능
+
+## Backend
+
+FastAPI 기반 게임 서버
+- 점수 저장 API
+- 실시간 랭킹 API
+- WebSocket 랭킹 송신
+- Redis/PostgreSQL 연동
 
 ## DB
 
@@ -93,6 +116,23 @@ tags:
 	- PostgreSQL의 관리자 비밀번호, 유저 접속 정보 → YAML에 평문 X
 	- `Secret`리소스를 사용해 보안 유지
 
+- **Namespace**: `game`
+- **Pod**: 각 애플리케이션 실행 단위
+- **Controller**: Deployment, StatefulSet
+- **YAML**: 전체 리소스 선언형 구성
+- **Service**: 내부 통신
+- **Ingress**: 외부 진입점
+- **PV/PVC**: PostgreSQL 영속성
+- **StorageClass**: PVC 동적 바인딩
+- **ConfigMap**: 일반 설정값
+- **Secret**: 비밀번호/민감정보
+- **Helm**: 배포 패키징
+- **Probe**: 상태 점검
+- **HPA**: backend 자동 확장
+- **QoSClass**: requests/limits로 간접 적용
+- **ServiceAccount**: Pod 실행 신원 분리
+- **RBAC**: ServiceAccount 권한 제어
+
 
 **추가 보완 사항**
 
@@ -105,8 +145,127 @@ tags:
 	- Redis 죽었을 때 랭킹 초기화
 	- → Redis의 **RDB/AOF(데이터 스냅샷/로그)** 기능을 설정하여 해당 디렉토리를 `PVC`로 연결
 
+## 최종 아키텍처
+
+```mermaid
+flowchart TB
+    User[사용자 브라우저]
+
+    subgraph External["외부 접근"]
+        PublicIP[공인 IP / 포트포워딩]
+        MetalLB[MetalLB]
+        Ingress[Nginx Ingress Controller]
+    end
+
+    subgraph Cluster["Kubernetes Cluster"]
+        subgraph NS["Namespace: game"]
+            subgraph FE["Frontend"]
+                FEDeploy[Deployment]
+                FEPod[React Pod]
+                FESvc[Service]
+                FEConfig[ConfigMap]
+                FEProbe[Readiness / Liveness Probe]
+                FESA[ServiceAccount]
+            end
+
+            subgraph BE["Backend"]
+                BEDeploy[Deployment]
+                BEPod1[FastAPI Pod]
+                BEPod2[FastAPI Pod]
+                BESvc[Service]
+                BEConfig[ConfigMap]
+                BESecret[Secret]
+                BEProbe[Readiness / Liveness Probe]
+                BEHPA[HPA]
+                BESA[ServiceAccount]
+                BERBAC[Role / RoleBinding]
+            end
+
+            subgraph Redis["Redis"]
+                RedisDeploy[Deployment]
+                RedisPod[Redis Pod]
+                RedisSvc[Service]
+            end
+
+            subgraph Postgres["PostgreSQL"]
+                PGSts[StatefulSet]
+                PGPod[PostgreSQL Pod]
+                PGSvc[Headless Service]
+                PGSecret[Secret]
+                PVC[PersistentVolumeClaim]
+                PV[PersistentVolume]
+                SC[StorageClass]
+            end
+        end
+
+        subgraph Ops["운영 / 모니터링"]
+            Helm[Helm Chart]
+            Metrics[metrics-server]
+            Prom[Prometheus]
+            Grafana[Grafana]
+        end
+    end
+
+    User --> PublicIP
+    PublicIP --> MetalLB
+    MetalLB --> Ingress
+
+    Ingress --> FESvc
+    Ingress --> BESvc
+
+    FESvc --> FEDeploy
+    FEDeploy --> FEPod
+    FEConfig --> FEPod
+    FEProbe --> FEPod
+    FESA --> FEPod
+
+    BESvc --> BEDeploy
+    BEDeploy --> BEPod1
+    BEDeploy --> BEPod2
+    BEConfig --> BEPod1
+    BEConfig --> BEPod2
+    BESecret --> BEPod1
+    BESecret --> BEPod2
+    BEProbe --> BEPod1
+    BEProbe --> BEPod2
+    BESA --> BEPod1
+    BESA --> BEPod2
+    BERBAC --> BESA
+    BEHPA --> BEDeploy
+    Metrics --> BEHPA
+
+    BEPod1 --> RedisSvc
+    BEPod2 --> RedisSvc
+    RedisSvc --> RedisDeploy
+    RedisDeploy --> RedisPod
+
+    BEPod1 --> PGSvc
+    BEPod2 --> PGSvc
+    PGSvc --> PGSts
+    PGSts --> PGPod
+    PGSecret --> PGPod
+    PGPod --> PVC
+    PVC --> PV
+    SC --> PVC
+
+    Prom --> FEPod
+    Prom --> BEPod1
+    Prom --> BEPod2
+    Prom --> RedisPod
+    Prom --> PGPod
+    Grafana --> Prom
+
+    Helm -. 관리 .-> FEDeploy
+    Helm -. 관리 .-> BEDeploy
+    Helm -. 관리 .-> RedisDeploy
+    Helm -. 관리 .-> PGSts
+    Helm -. 관리 .-> Ingress
+    Helm -. 관리 .-> BEHPA
+```
+
+
 ---
 
 ## 진행 로그
 
-- [VM 클러스터 구축](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/01_proj.md)
+- [VM 클러스터 구축](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/01_describe.md)
