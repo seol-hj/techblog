@@ -25,30 +25,30 @@ tags:
 
 ## 로드맵
 
-1. **[인프라 및 클러스터 구축](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/01_describe.md)**
+1. **[인프라 및 클러스터 구축](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/01_pre.md)**
 	- **환경** : VM 3대(Master 1, Worker 2) 준비
 	- **구현** : `kubeadm`, `Calico(CNI)`, `metrics-server`, `Ingress`, `MetalLB`, `StorageClass` 준비
 	- **핵심** : `kubectl`로 노드 상태 정상 확인
 
-2. **애플리케이션 개발** (Claude Code 활용)
+2. **[애플리케이션 개발](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/02_app.md)** (Claude Code 활용)
 	- **구현** :
 		- FE : 테트리스 게임 UI (React)
 		- BE : FastAPI 기반 게임 로직 & WebSocket 실시간 랭킹 API
 		- DB : PostgreSQL(유저 데이터), Redis(랭킹 캐시)
 	- **핵심** : `Dockerfile` 작성 및 컨테이너 이미지 준비
 
-3. **쿠버네티스 매니페스트 및 Helm 패키징**
+3. **[쿠버네티스 매니페스트 및 Helm 패키징](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/03_Kubernetes.md)**
 	- **구현** : Deployment, Service, Ingress 등 Kubernetes 리소스 YAML 작성
 	- **활용** : ConfigMap(설정), Secret(DB 패스워드), PV/PVC(DB 데이터 영속성), RBAC(보안 권한)
 	- **핵심** : Helm Chart로 패키징하여 `values.yaml` 기반 환경 설정 관리
 
-4. **트래픽 제어 및 외부 노출**
+4. **[트래픽 제어 및 외부 노출](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/04_Connect.md)**
 	- **구현** :
 		- **Ingress Controller** : Nginx 설치 및 외부 트래픽 수용
 		- **HPA** : 트래픽 증가에 따른 자동 스케일링 설정
 		- **Networking** : `MetalLB`를 활용한 외부 접속 경로 확보
 
-5. **모니터링 및 고도화**
+5. **[모니터링 및 고도화](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/05_Monitoring_Scaling_CICD.md)**
 	- **구현** : `kube-prometheus-stack` (Helm chart) 설치
 	- **핵심** : Grafana 대시보드로 게임 서버 리소스(CPU/Memory)와 실시간 트래픽 상태 모니터링
 
@@ -268,4 +268,4 @@ flowchart TB
 
 ## 진행 로그
 
-- [VM 클러스터 구축](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/01_describe.md)
+- [VM 클러스터 구축](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/01_pre.md)
