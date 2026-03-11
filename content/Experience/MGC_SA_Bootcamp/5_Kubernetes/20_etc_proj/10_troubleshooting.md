@@ -191,3 +191,12 @@ spec:
 
 ## 문제 8.
 
+> Monitoring에서  
+> Prometheus/Grafana/Alertmanager → PVC 생성 → 바인딩할 StorageClass/PV 존재 X → Pending
+
+해결 : 
+`local-path-provisioner`을 설치해 PVC가 자동으로 PV에 바인딩 되게 만듦
+
+흐름 : `Prometheus/Grafana/Alertmanager → PVC 생성 → local-path StorageClass 사용 → local-path-provisioner가 PV 자동 생성 → Bound → Pod Running`
+
+- 직접 PV를 하나씩 만들기 X → 프로비저너가 자동으로 처리하게 만듦

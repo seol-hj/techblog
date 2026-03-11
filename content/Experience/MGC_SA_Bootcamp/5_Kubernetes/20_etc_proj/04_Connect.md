@@ -211,7 +211,7 @@ ingress:
                 Internet
                     │
                     ▼
-          https://tetris.~~~~.kim
+          https://tetris.~~~~.com
                     │
                     ▼
               Cloudflare
@@ -323,11 +323,11 @@ kubectl logs -n game deploy/cloudflared
 4. Cloudflare 에서 연결
 `http://frontend.game.svc.cluster.local:80` 연결
 
-![348](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260311-2.png)
+![380](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260312-6.png)
 
 5. 외부 접속 성공 및 HTTPS 구현 완료
 
-![461](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260311-3.png)
+![](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260312-7.png)
 
 추가 사항
 if) 백엔드가 WebSocket 서버 → Cloudflare Tunnel 에 route 추가 필요
