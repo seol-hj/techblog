@@ -33,7 +33,7 @@ export default {
       title: "리더 모드",
     },
     explorer: {
-      title: "ls -a",
+      title: "Tree",
     },
     footer: {
       createdWith: "Start 26.02.05",
