@@ -2,7 +2,7 @@
 title: 서비스 고도화 (HPA 오토 스케일링, 모니터링, CI/CD 구축)
 draft: false
 date: 2026-03-10
-updated: 2026-03-10
+updated: 2026-03-12
 tags:
   - Kubernetes
   - VM
@@ -516,15 +516,25 @@ namespace 생성 : `kubectl creat namespace argocd`
 kubectl apply -n argocd \
 -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
+- 최근 Kubernetes CRD가 커져 용량 제한 초과 걸림 → `--server-side` 옵션으로 해결
+- if) 이전 `Client-side`랑 Conflict 날경우 → `--force-conflicts` 옵션으로 해결
 
 Pod 확인 : `kubectl get pods -n argocd`
+
+![470](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260312-8.png)
+
+[<문제 9.>](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/10_troubleshooting.md) - 오류 발생 시 해결
 
 2. ArgoCD 접속
 
 Service 확인 : `kubectl get svc -n argocd`
 - 보통 `ClusterIP` → `NodePort` 로 변경 (`kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}')
 
+![533](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260312-9.png)
+
 접속 : `https://<node-ip>:<nodePort>`
+
+![375](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260312-10.png)
 
 초기 admin password 확인
 ```
@@ -532,4 +542,111 @@ kubectl get secret argocd-initial-admin-secret \
 -n argocd \
 -o jsonpath="{.data.password}" | base64 -d
 ```
-- id = `admin`
+- id = `admin` / pw = `<해당 값>` 으로 접속
+
+![422](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260312-11.png)
+
+3. Git Repo
+
+- ArgoCD는 배포 상태 관리 (코드 관리 X) → 앱 코드 repo / 배포 repo 나눔
+	- ArgoCD는
+		- Kubernetes manifest
+		- Helm chart
+		- Helm values
+		- Kustomize 을 봄
+
+ex)
+app code repo
+- backend source
+- frontend source
+- Dockerfile
+
+배포 repo
+- Helm chart
+- values.yaml
+- image tag
+- ingress
+- namespace
+
+- 일단 monorepo로 사용 → path 설정 필요
+
+4. cp에서 `tetris-app.yaml` 생성
+```
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tetris
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/repo주소
+    targetRevision: main
+    path: helm/tetris
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: game
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+```
+- Kubernetes 안에 Application 리소스 생성
+
+적용 : `kubectl apply -f tetris-app.yaml`
+
+확인 : `kubectl get applications -n argocd`
+
+![325](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260312-12.png)
+
+- ArgoCD 웹 UI 에서도 확인 가능
+
+![334](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260312-13.png)
+
+5. 자동 배포 동작
+- `.syncPolicy.automated`가 켜져있으므로, `helm/tetris` 아래 `values`파일에서 이미지 태그를 변경하고 Git push 하면 ArgoCD가 변경을 감지하여 자동으로 sync
+
+```
+Docker 이미지 push
+→ helm/tetris 안의 image tag 수정
+→ git push
+→ ArgoCD 감지
+→ Kubernetes 롤링 업데이트
+```
+
+![688](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/img/20260312-14.png)
+
+>[!info] 결과  
+>1. `backend/` , `frontend/` 코드 변경  
+>2. Docker 이미지 build  
+>3. Docker Hub push  
+>4. `helm/tetris/values.yaml`에서 이미지 태그 수정  
+>5. commit / push  
+>6. ArgoCD가 감지해서 배포
+
+```
+[앱 코드 repo]
+backend / frontend 코드
+        │
+        ▼
+GitHub Actions
+- Docker build
+- Docker Hub push
+- 배포용 values.yaml의 image tag 변경
+        │
+        ▼
+[GitOps repo]
+helm/tetris/values.yaml
+        │
+        ▼
+ArgoCD
+- Git 변경 감지
+- Kubernetes 배포
+```
+
+- **앱 코드 변경 감지 + Docker 이미지 빌드/푸시** → GitHub Actions
+- **배포 상태 변경 감지 + Kubernetes 반영** → ArgoCD

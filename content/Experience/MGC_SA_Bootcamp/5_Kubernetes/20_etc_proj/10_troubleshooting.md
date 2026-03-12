@@ -200,3 +200,33 @@ spec:
 흐름 : `Prometheus/Grafana/Alertmanager → PVC 생성 → local-path StorageClass 사용 → local-path-provisioner가 PV 자동 생성 → Bound → Pod Running`
 
 - 직접 PV를 하나씩 만들기 X → 프로비저너가 자동으로 처리하게 만듦
+
+---
+
+## 문제 9.
+
+>ArgoCD 설치 시 `argocd-dex-server` 이 죽음 
+
+문제점 확인 :
+`kubectl logs -n argocd <argocd-dex-server-pod명>` 으로 확인
+
+원인 :
+`server.secretkey is missing`
+- `argocd-secret`가 꼬인 경우
+
+secret 존재 여부 확인
+```
+kubectl get secret argocd-secret -n argocd
+kubectl get secret argocd-secret -n argocd -o yaml
+```
+- `data:` 아래 `server.secretkey`가 존재해야 함
+
+`argocd-secret`에 `server.secretkey`가 있는데 오류나는 경우
+- Pod가 secret 생성 전에 떠서 꼬인 경우
+- rollout 필요
+```
+kubectl rollout restart deployment argocd-dex-server -n argocd
+kubectl rollout restart deployment argocd-server -n argocd
+kubectl rollout restart statefulset argocd-application-controller -n argocd
+kubectl get pods -n argocd -w
+```
