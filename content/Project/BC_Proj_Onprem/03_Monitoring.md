@@ -20,17 +20,21 @@ tags:
 	- Prometheus → 매트릭 수집
 	- Grafana → 시각화
 	- Alertmanager → 알림 관리
+
 - 클러스터 및 애플리케이션 메트릭 수집 구성
 	- Node / Pod 리소스 사용량
 	- Deployment 상태
 	- 네트워크 트래픽
+
 - Grafana 대시보드 구성
 	- Kubernetes 리소스 모니터링
 	- 애플리케이션 상태 시각화
 	- 3-Tier vs 개선 아키텍처 비교 대시보드 구성
+
 - Alertmanager 설정
 	- Alert Rule 정의
 	- Slack Webhook 연동
+
 - 주요 Alert 조건 정의
 	- Pod Crash / Restart 발생
 	- CPU / Memory 임계치 초과
@@ -41,10 +45,13 @@ tags:
 
 - Prometheus + Grafana 도입
 	- → **장애 원인 파악 시간 80% 단축**
+
 - Alertmanager + Slack 연동
 	- → **장애 인지 시간 평균 10분 → 1분으로 감소**
+
 - 실시간 메트릭 기반 모니터링
 	- → **리소스 과부하 사전 탐지 가능 (사전 대응률 증가)**
+
 - 아키텍처 비교 대시보드 구성
 	- → **성능 차이를 정량적으로 분석 가능 (데이터 기반 의사결정)**
 

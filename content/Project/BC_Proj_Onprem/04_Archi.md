@@ -21,9 +21,11 @@ tags:
 	- Frontend (React)
 	- Backend (Node.js API Server)
 	- Worker (비동기 작업 처리)
+
 - 비동기 처리 구조 도입
 	- Redis Queue 기반 작업 처리
 	- Backend → Queue → Worker 구조 구성
+
 - Redis 역할 분리
 	- Redis Session
 		- 로그인 세션 저장
@@ -31,9 +33,11 @@ tags:
 	- Redis Queue
 		- 비동기 작업 처리
 		- 트래픽 버퍼 역할
+
 - PostgreSQL 외부 분리
 	- Kubernetes 외부 VM에 DB 구성
 	- 애플리케이션과 데이터 계층 분리
+
 - 데이터 계층 이중화 설계
 	- PostgreSQL Primary / Replica 구조
 	- Redis Replica 구성
@@ -42,12 +46,16 @@ tags:
 
 - Redis Queue 기반 비동기 처리 도입
 	- → **API 응답 시간 40% 감소**
+
 - Worker 분리
 	- → **Backend CPU 사용률 30% 감소**
+
 - Redis Session / Queue 분리
 	- → **세션 처리 지연 발생률 감소 (Queue 부하 영향 제거)**
+
 - DB 외부 분리
 	- → **애플리케이션 장애 시 DB 영향도 감소 (격리 효과 확보)**
+
 - Queue 기반 구조
 	- → **Burst 트래픽 처리 가능량 증가 (최대 처리량 N배 증가)**
 
