@@ -28,14 +28,21 @@ tags:
 
 #### 조회
 
-|구분|정방향|역방향|
-|---|---|---|
-|방향|이름 → IP|IP → 이름|
-|레코드|A / AAAA|PTR|
-|필수 여부|필수|선택적|
+| 구분    | 정방향      | 역방향     |
+| ----- | -------- | ------- |
+| 방향    | 이름 → IP  | IP → 이름 |
+| 레코드   | A / AAAA | PTR     |
+| 필수 여부 | 필수       | 선택적     |
+|       |          |         |
 
 - PTR은 DNS 동작에 필수 X
 	- → But, 메일 서버 운영 시 매우 중요
 
 #### nslookup과 PTR
+
+nslookup 실행 시 : `Server: ns1.example.com`
+- 해당 DNS 서버 IP에 대한 PTR 레코드 있어야 출력
+- if) PTR X → IP로 표시, DNS 동작과는 무관
+
+## Caching Name Server
 
