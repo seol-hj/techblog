@@ -17,4 +17,5 @@ tags:
 ## 📌 학습 기록
 
 - [DNS](Experience/MGC_SA_Bootcamp/6_온프레미스_인프라/01_DNS.md)
-- 
+- [VPN](Experience/MGC_SA_Bootcamp/6_온프레미스_인프라/02_VPN.md)
+- [BGP](Experience/MGC_SA_Bootcamp/6_온프레미스_인프라/03_BGP.md)
