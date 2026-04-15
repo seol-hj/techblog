@@ -26,3 +26,6 @@ tags:
 - [[Experience/MGC_SA_Bootcamp/4_KVM_Docker/index|KVM & Docker]]
 - [Kubernetes](Experience/MGC_SA_Bootcamp/5_Kubernetes/index.md)
 - [온프레미스 인프라 구조](Experience/MGC_SA_Bootcamp/6_온프레미스_인프라/index.md)
+
+- [온프레미스 프로젝트](Project/BC_Proj_Onprem/index.md)
+- [개인 온프레미스 쿠버네티스 프로젝트](Experience/MGC_SA_Bootcamp/5_Kubernetes/20_etc_proj/index.md)
