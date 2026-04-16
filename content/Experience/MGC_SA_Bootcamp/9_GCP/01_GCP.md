@@ -15,13 +15,13 @@ tags:
 
 #### 기본 서비스 구조
 
-1. **컴퓨팅 (Compute)**
+1. [**컴퓨팅 (Compute)**](Experience/MGC_SA_Bootcamp/9_GCP/04_Compute.md)
 	- **Compute Engine**
 		- 가상머신(VM)을 생성해서 사용
 		- 운영체제, CPU, 메모리, 디스크, 네트워크 인터페이스 등 직접 구성 가능
 		- **AWS EC2 ↔ Compute Engine**
 
-	- **Google Kubernetes Engine (GKE)**
+	- [**Google Kubernetes Engine (GKE)**](Experience/MGC_SA_Bootcamp/9_GCP/11_GKE.md)
 		- 관리형 쿠버네티스 클러스터
 		- **AWS EKS ↔ GKE**
 
@@ -34,13 +34,13 @@ tags:
 		- 코드 중심 애플리케이션 배포 및 운영 플랫폼
 		- 코드만 올리면 자동 배포
 
-2. **네트워크 (Network)**
+2. [**네트워크 (Network)**](Experience/MGC_SA_Bootcamp/9_GCP/03_Network.md)
 	- **VPC**
 		- 클라우드 안 네트워크 구성 기본 단위
 		- IP 대역, 서브넷, 라우팅, 방화벽 정책 등
 		- **AWS VPC와 유사 / But, 글로벌 VPC**
 
-	- **Cloud Load Balancing**
+	- **[Cloud Load Balancing](Experience/MGC_SA_Bootcamp/9_GCP/07_LB.md)**
 		- 트래픽 분산 로드밸런서 서비스
 		- 글로벌 L7/L4 로드밸런서
 		- **AWS ELB ↔ Cloud Load Balancing**
@@ -61,13 +61,13 @@ tags:
 	- **Firewall Rules**
 		- 트래픽 허용 및 차단 정책 정의
 
-3. **스토리지 (Storage) 및 데이터베이스 (DataBase)**
+3. **[스토리지 (Storage)](Experience/MGC_SA_Bootcamp/9_GCP/05_Storage.md) 및 데이터베이스 (DataBase)**
 	- **Cloud Storage**
 		- 객체 스토리지 서비스
 		- 파일, 이미지, 로그, 백업 파일, 정적 웹 콘텐츠 등 저장
 		- **AWS S3 ↔ Cloud Storage**
 
-	- **Cloud SQL**
+	- [**Cloud SQL**](Experience/MGC_SA_Bootcamp/9_GCP/06_SQL.md)
 		- 관리형 관계형 데이터베이스
 		- MySQL, PostgreSQL, SQL Server 등 운영
 		- **AWS RDS ↔ Cloud SQL**
@@ -103,10 +103,10 @@ tags:
 
 	- **Artifact Registry**
 
-	- **Cloud Monitoring**
+	- **[Cloud Monitoring](Experience/MGC_SA_Bootcamp/9_GCP/08_Monitoring_Logging.md)**
 		- 메트릭, 상태, 알림 중심 → Cloud Monitoring
 
-	- **Cloud Logging**
+	- **[Cloud Logging](Experience/MGC_SA_Bootcamp/9_GCP/08_Monitoring_Logging.md)**
 		- 로그 수집, 조회, 분석 중심 → Cloud Logging
 		- **AWS CloudWatch ↔ Cloud Monitoring / Cloud Logging**
 
@@ -118,7 +118,7 @@ tags:
 	- AWS 보다 강함
 
 6. **보안 및 거버넌스**
-	- **IAM**
+	- [**IAM**](Experience/MGC_SA_Bootcamp/9_GCP/02_IAM.md)
 		- **↔ AWS IAM**
 
 	- **Resource Manager**

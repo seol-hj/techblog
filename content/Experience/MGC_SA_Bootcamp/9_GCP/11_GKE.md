@@ -20,7 +20,7 @@ tags:
 	- Autopilot 클러스터는 반드시 릴리스 채널에 등록
 	- Standard는 등록/미등록 선택 가능
 	- 모든 클러스터는 Regular 채널에 등록
-- **Workload Identity Federation for GKE** 권장
+- [**Workload Identity Federation for GKE**](Experience/MGC_SA_Bootcamp/9_GCP/14_Workload_Identity_Federation_for_GKE.md) 권장
 	- 서비스 계정 키 없이 워크로드 권한 연결
 - Google Cloud 네트워크와 결합된 **Private Cluster, Gateway API, Fleet** 제공
 
@@ -40,5 +40,5 @@ tags:
 - 차이
 	- [운영 모드](Experience/MGC_SA_Bootcamp/9_GCP/12_GKE_Mode.md) : Standard vs Autopilot
 	- 버전 운영 : Release Channel
-	- 권한 설계 : Workload Identity Federation for GKE
+	- 권한 설계 : [Workload Identity Federation for GKE](Experience/MGC_SA_Bootcamp/9_GCP/14_Workload_Identity_Federation_for_GKE.md)
 	- 다중 클러스터 운영 : Fleet
