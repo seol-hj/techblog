@@ -21,4 +21,9 @@ tags:
 
 - [CI/CD 개요](Experience/MGC_SA_Bootcamp/8_CICD/01_CICD.md)
 - [CI/CD Pipeline](Experience/MGC_SA_Bootcamp/8_CICD/02_Pipeline.md)
-- 
+- [Jenkins](Experience/MGC_SA_Bootcamp/8_CICD/03_Jenkins.md)
+- [Jenkins Pipeline](Experience/MGC_SA_Bootcamp/8_CICD/04_Jenkins_Pipeline.md)
+- [GitHub Actions](Experience/MGC_SA_Bootcamp/8_CICD/05_GitHub_Actions.md)
+- [GitHub Actions Workflow](Experience/MGC_SA_Bootcamp/8_CICD/06_GitHub_Actions_Workflow.md)
+- [GitOps](Experience/MGC_SA_Bootcamp/8_CICD/07_GitOps.md)
+- [ArgoCD](Experience/MGC_SA_Bootcamp/8_CICD/08_ArgoCD.md)
