@@ -27,3 +27,5 @@ tags:
 - [GitHub Actions Workflow](Experience/MGC_SA_Bootcamp/8_CICD/06_GitHub_Actions_Workflow.md)
 - [GitOps](Experience/MGC_SA_Bootcamp/8_CICD/07_GitOps.md)
 - [ArgoCD](Experience/MGC_SA_Bootcamp/8_CICD/08_ArgoCD.md)
+---
+#### [실습](Experience/MGC_SA_Bootcamp/8_CICD/20_실습/index.md)

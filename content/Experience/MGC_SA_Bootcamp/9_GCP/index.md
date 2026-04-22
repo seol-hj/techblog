@@ -23,11 +23,14 @@ tags:
 - [Cloud SQL](Experience/MGC_SA_Bootcamp/9_GCP/06_SQL.md)
 - [Cloud Load Balancing](Experience/MGC_SA_Bootcamp/9_GCP/07_LB.md)
 - [Cloud Monitoring & Cloud Logging](Experience/MGC_SA_Bootcamp/9_GCP/08_Monitoring_Logging.md)  
-
+---
 - [GKE 개요](Experience/MGC_SA_Bootcamp/9_GCP/11_GKE.md)
 - [GKE 운영 모드](Experience/MGC_SA_Bootcamp/9_GCP/12_GKE_Mode.md)
 - [GKE Cluster 설계 요소](Experience/MGC_SA_Bootcamp/9_GCP/13_GKE_Cluster.md)
 - [Workload Identity Federation for GKE](Experience/MGC_SA_Bootcamp/9_GCP/14_Workload_Identity_Federation_for_GKE.md)
 - [GKE Service & Gateway API](Experience/MGC_SA_Bootcamp/9_GCP/15_Gateway_API.md)
-
-- [GCP & GKE 실습](Experience/MGC_SA_Bootcamp/9_GCP/20_실습/index.md)
+---
+- [멀티 클라우드](Experience/MGC_SA_Bootcamp/9_GCP/16_Multi_Cloud.md)
+- [GKE와 AWS 통신](Experience/MGC_SA_Bootcamp/9_GCP/17_GKE_AWS.md)
+---
+#### [GCP & GKE 실습](Experience/MGC_SA_Bootcamp/9_GCP/20_실습/index.md)
