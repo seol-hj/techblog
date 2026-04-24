@@ -7,7 +7,8 @@ tags:
 
 > [!info]
 > Terraform 인프라 자동화  
-> Terraform 모듈 및 원격 백엔드
+> Terraform 모듈 및 원격 백엔드  
+> Ansible
 
 
 ---
